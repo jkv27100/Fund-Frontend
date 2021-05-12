@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import colors from "../config/colors";
+import theme from "../config/theme";
 
-export default function Button({ text }) {
+export default function IntroButton({ text, height, width }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{text}</Text>
@@ -14,15 +14,15 @@ const styles = StyleSheet.create({
   container: {
     height: 40,
     width: 100,
-    backgroundColor: colors.primary,
+    backgroundColor: theme.colors.primary,
     borderWidth: 1,
-    borderColor: colors.white,
+    borderColor: theme.colors.white,
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    color: colors.white,
+    color: theme.colors.white,
     fontSize: 18,
     fontWeight: "bold",
   },

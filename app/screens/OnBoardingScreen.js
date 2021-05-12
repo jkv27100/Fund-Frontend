@@ -1,31 +1,31 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
-import Slide from "./Slide";
-import Button from "./Button";
+import Slide from "../components/Slide";
+import IntroButton from "../components/IntroButton";
 
-export default function intorslider() {
+export default function OnBoardingScreen() {
   const slides = [
     {
-      key: 1,
+      key: "1",
       source: require("../../assets/animations/14482-welcome-onboard.json"),
       title: "Welcome",
       text: "Say something cool",
     },
     {
-      key: 2,
+      key: "2",
       source: require("../../assets/animations/2.json"),
       title: "Add Post and Donate",
       text: "Other cool stuff",
     },
     {
-      key: 3,
+      key: "3",
       source: require("../../assets/animations/block.json"),
       title: "BlockChain",
       text: "Other cool stuff",
     },
     {
-      key: 4,
+      key: "4",
       title: "Get Started",
       source: require("../../assets/animations/start.json"),
       text: "I'm already out of descriptions",
@@ -46,13 +46,13 @@ export default function intorslider() {
   };
 
   const _renderNextButton = () => {
-    return <Button text="Next" />;
+    return <IntroButton text="Next" />;
   };
   const _renderDoneButton = () => {
-    return <Button text="Done" />;
+    return <IntroButton text="Done" />;
   };
   const _renderSkipButton = () => {
-    return <Button text="Skip" />;
+    return <IntroButton text="Skip" />;
   };
   return (
     <AppIntroSlider

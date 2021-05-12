@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import colors from "../config/colors";
+import theme from "../config/theme";
 import Animator from "./Animator";
 
 export default function Slide({ title, source, description }) {
@@ -24,7 +24,7 @@ export default function Slide({ title, source, description }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
+    backgroundColor: theme.colors.primary,
     alignItems: "center",
   },
   animation: {
@@ -45,13 +45,13 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    color: colors.white,
+    color: theme.colors.white,
     fontWeight: "bold",
     fontSize: 36,
     lineHeight: 42,
   },
   description: {
-    color: colors.white,
+    color: theme.colors.white,
     fontSize: 18,
     fontWeight: "100",
   },
