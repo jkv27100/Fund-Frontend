@@ -3,31 +3,32 @@ import { StyleSheet } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import Slide from "../components/Slide";
 import IntroButton from "../components/IntroButton";
+import routes from "../navigation/routes";
 
-export default function OnBoardingScreen() {
+export default function OnBoardingScreen({ navigation }) {
   const slides = [
     {
       key: "1",
-      source: require("../../assets/animations/14482-welcome-onboard.json"),
+      source: require("../assets/animations/14482-welcome-onboard.json"),
       title: "Welcome",
       text: "Say something cool",
     },
     {
       key: "2",
-      source: require("../../assets/animations/2.json"),
+      source: require("../assets/animations/2.json"),
       title: "Add Post and Donate",
       text: "Other cool stuff",
     },
     {
       key: "3",
-      source: require("../../assets/animations/block.json"),
+      source: require("../assets/animations/block.json"),
       title: "BlockChain",
       text: "Other cool stuff",
     },
     {
       key: "4",
       title: "Get Started",
-      source: require("../../assets/animations/start.json"),
+      source: require("../assets/animations/start.json"),
       text: "I'm already out of descriptions",
     },
   ];
@@ -40,8 +41,7 @@ export default function OnBoardingScreen() {
     );
   };
   const _onDone = () => {
-    // User finished the introduction. Show real app through
-    // navigation or simply by controlling state
+    navigation.navigate(routes.REGISTER_1);
     setState(true);
   };
 
@@ -62,6 +62,7 @@ export default function OnBoardingScreen() {
       renderDoneButton={_renderDoneButton}
       showSkipButton
       renderSkipButton={_renderSkipButton}
+      onDone={_onDone}
     />
   );
 }

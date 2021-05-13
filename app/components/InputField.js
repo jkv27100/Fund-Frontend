@@ -49,5 +49,5 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: theme.colors.white,
   },
-  icon: { marginRight: 20, marginLeft: 0 },
+  icon: { marginRight: 20 },
 });

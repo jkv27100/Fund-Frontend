@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import AppButton from "../components/AppButton";
 import InputField from "../components/InputField";
 import StatusBarView from "../components/StatusBarView";
@@ -8,29 +8,40 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import theme from "../config/theme";
 import ErrorMessage from "../components/ErrorMessage";
+import Steps from "../components/Steps";
 import routes from "../navigation/routes";
 
 const validationSchema = Yup.object().shape({
+  name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(5).label("Password"),
+  phone: Yup.string().required().min(10).max(10).label("Phone"),
 });
 
-export default function LoginScreen({ navigation }) {
-  const handlePasswordPress = () => {
-    console.log("pressed");
-  };
-
+export default function RegisterScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBarView />
       <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        initialValues={{ name: "", email: "", phone: "" }}
+        onSubmit={() => navigation.navigate(routes.REGISTER_2)}
         validationSchema={validationSchema}
       >
         {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
           <View style={styles.content}>
-            <Text style={styles.text}>Log In</Text>
+            <View style={styles.header}>
+              <Text style={{ fontSize: 36, color: theme.colors.white }}>
+                New Account
+              </Text>
+              <Steps total="3" step="1" />
+            </View>
+            <InputField
+              placeholder="Name"
+              name="user"
+              onBlur={() => setFieldTouched("name")}
+              onChangeText={handleChange("name")}
+              autoCorrect={false}
+            />
+            <ErrorMessage message={errors.name} visible={touched.name} />
             <InputField
               placeholder="email"
               name="envelope"
@@ -42,33 +53,25 @@ export default function LoginScreen({ navigation }) {
             />
             <ErrorMessage message={errors.email} visible={touched.email} />
             <InputField
-              placeholder="password"
-              name="lock"
-              autoCapitalize="none"
-              onBlur={() => setFieldTouched("password")}
-              onChangeText={handleChange("password")}
+              placeholder="Phone"
+              name="phone-alt"
+              keyboardType="number-pad"
+              onBlur={() => setFieldTouched("phone")}
+              onChangeText={handleChange("phone")}
               autoCorrect={false}
-              secureTextEntry
             />
-            <ErrorMessage
-              message={errors.password}
-              visible={touched.password}
-            />
+            <ErrorMessage message={errors.phone} visible={touched.phone} />
             <View style={styles.bottom}>
-              <TextButton
-                text="Forgot Password"
-                onPress={handlePasswordPress}
-              />
               <View style={styles.btn}>
-                <AppButton text="Log in" onPress={handleSubmit} />
+                <AppButton text="Next" onPress={handleSubmit} />
               </View>
-              <View style={styles.signup}>
+              <View style={styles.login}>
                 <Text style={{ color: theme.colors.white }}>
-                  First Time Here ?{" "}
+                  Already a user ?{" "}
                 </Text>
                 <TextButton
-                  text="Sign Up"
-                  onPress={() => navigation.navigate(routes.REGISTER_1)}
+                  text="Log In"
+                  onPress={() => navigation.navigate(routes.LOGIN)}
                 />
               </View>
             </View>
@@ -89,10 +92,11 @@ const styles = StyleSheet.create({
     width: "75%",
     marginTop: "20%",
   },
-  text: {
-    fontSize: 36,
-    color: theme.colors.white,
-    marginBottom: "40%",
+  header: {
+    marginBottom: "30%",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   bottom: {
     width: "100%",
@@ -102,7 +106,7 @@ const styles = StyleSheet.create({
   btn: {
     marginTop: 100,
   },
-  signup: {
+  login: {
     flexDirection: "row",
     alignItems: "center",
     marginTop: 20,

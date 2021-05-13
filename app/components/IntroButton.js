@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../config/theme";
 
-export default function IntroButton({ text, height, width }) {
+export default function IntroButton({ text, onPress }) {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onPress={onPress}>
       <Text style={styles.text}>{text}</Text>
     </View>
   );
