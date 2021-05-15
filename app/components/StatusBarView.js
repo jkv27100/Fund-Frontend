@@ -7,7 +7,7 @@ export default function StatusBarView() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: StatusBar.currentHeight,
+    marginTop: StatusBar.currentHeight * 1.5,
     width: "100%",
   },
 });

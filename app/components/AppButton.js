@@ -2,10 +2,19 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
 import theme from "../config/theme";
 
-export default function AppButton({ text, onPress }) {
+export default function AppButton({ text, onPress, fontSize = 18 }) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>{text}</Text>
+      <Text
+        style={{
+          color: theme.colors.white,
+          fontSize: fontSize,
+          fontWeight: "bold",
+          textTransform: "uppercase",
+        }}
+      >
+        {text}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -21,11 +30,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.white,
     marginVertical: 10,
-  },
-  text: {
-    color: theme.colors.white,
-    fontSize: 18,
-    fontWeight: "bold",
-    textTransform: "uppercase",
   },
 });
