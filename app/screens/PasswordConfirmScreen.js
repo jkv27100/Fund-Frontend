@@ -68,7 +68,12 @@ export default function PasswordConfirmScreen({ navigation }) {
 
             <View style={styles.bottom}>
               <View style={styles.btn}>
-                <AppButton text="Sign Up" onPress={handleSubmit} />
+                <AppButton
+                  text="Sign Up"
+                  onPress={handleSubmit}
+                  width={theme.buttonSizes.login.width}
+                  height={theme.buttonSizes.login.height}
+                />
               </View>
             </View>
           </View>

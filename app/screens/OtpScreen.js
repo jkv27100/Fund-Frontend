@@ -49,7 +49,12 @@ export default function OtpScreen({ navigation }) {
             <ErrorMessage message={errors.otp} visible={touched.otp} />
             <View style={styles.bottom}>
               <View style={styles.btn}>
-                <AppButton text="Continue" onPress={handleSubmit} />
+                <AppButton
+                  text="Continue"
+                  onPress={handleSubmit}
+                  width={theme.buttonSizes.login.width}
+                  height={theme.buttonSizes.login.height}
+                />
               </View>
             </View>
           </View>

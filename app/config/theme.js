@@ -12,6 +12,14 @@ const buttonSizes = {
     height: 50,
     width: 180,
   },
+  card: {
+    height: 35,
+    width: 120,
+  },
+  details: {
+    height: 40,
+    width: 180,
+  },
 };
 
 const inputFiled = {

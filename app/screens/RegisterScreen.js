@@ -63,7 +63,12 @@ export default function RegisterScreen({ navigation }) {
             <ErrorMessage message={errors.phone} visible={touched.phone} />
             <View style={styles.bottom}>
               <View style={styles.btn}>
-                <AppButton text="Next" onPress={handleSubmit} />
+                <AppButton
+                  text="Next"
+                  onPress={handleSubmit}
+                  width={theme.buttonSizes.login.width}
+                  height={theme.buttonSizes.login.height}
+                />
               </View>
               <View style={styles.login}>
                 <Text style={{ color: theme.colors.white }}>

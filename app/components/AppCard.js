@@ -6,11 +6,15 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Collapsible from "react-native-collapsible";
 import Icon from "./Icon";
 import theme from "../config/theme";
 import ProgressBar from "./ProgressBar";
 import AppButton from "./AppButton";
+import Tag from "./Tag";
+import LocationTag from "./LocationTag";
+import routes from "../navigation/routes";
 
 export default function AppCard({
   title,
@@ -21,8 +25,11 @@ export default function AppCard({
   days,
   likes,
   button,
+  tag,
+  location,
 }) {
   const [collapsed, setCollapsed] = useState(true);
+  const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback onPress={() => setCollapsed(!collapsed)}>
       <View style={styles.cardContainer}>
@@ -69,8 +76,19 @@ export default function AppCard({
                 </Text>
               </View>
               <View style={styles.btn}>
-                <AppButton text={button} fontSize={14} />
+                <AppButton
+                  text={button}
+                  fontSize={14}
+                  width={theme.buttonSizes.card.width}
+                  height={theme.buttonSizes.card.height}
+                  fontSize={12}
+                  onPress={() => navigation.navigate(routes.POST_DETAILS)}
+                />
               </View>
+            </View>
+            <View style={styles.tag}>
+              <Tag tag={tag} />
+              <LocationTag location={location} />
             </View>
           </Collapsible>
         </View>
@@ -133,5 +151,10 @@ const styles = StyleSheet.create({
   },
   details: {
     width: "40%",
+  },
+  tag: {
+    marginHorizontal: 10,
+    paddingBottom: 10,
+    flexDirection: "row",
   },
 });

@@ -60,7 +60,12 @@ export default function LoginScreen({ navigation }) {
                 onPress={handlePasswordPress}
               />
               <View style={styles.btn}>
-                <AppButton text="Log in" onPress={handleSubmit} />
+                <AppButton
+                  text="Log in"
+                  onPress={handleSubmit}
+                  width={theme.buttonSizes.login.width}
+                  height={theme.buttonSizes.login.height}
+                />
               </View>
               <View style={styles.signup}>
                 <Text style={{ color: theme.colors.white }}>

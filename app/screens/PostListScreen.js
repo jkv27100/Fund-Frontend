@@ -15,57 +15,82 @@ export default function PostListScreen() {
       pledged: "$8767",
       days: "5",
       likes: "4561",
+      tag: "Technology",
+      location: "Manglore,Karnataka,India",
     },
     {
       id: "2",
       title: "New app for gaming",
       subTitle: "Install and enjoy the fast",
       image: require("../assets/images/pic.jpg"),
-      percetage: "37",
+      percetage: "78",
       pledged: "$8767",
       days: "5",
       likes: "4561",
+      tag: "Food",
+      location: "Kannur,Kerala",
     },
     {
       id: "3",
       title: "New app for gaming",
       subTitle: "Install and enjoy the fast",
       image: require("../assets/images/pic.jpg"),
-      percetage: "37",
+      percetage: "67",
       pledged: "$8767",
       days: "5",
       likes: "4561",
+      tag: "App",
+      location: "Taliparamba,Kerala",
+    },
+    {
+      id: "4",
+      title: "New app for gaming",
+      subTitle: "Install and enjoy the fast",
+      image: require("../assets/images/pic.jpg"),
+      percetage: "67",
+      pledged: "$8767",
+      days: "5",
+      likes: "4561",
+      tag: "App",
+      location: "Taliparamba,Kerala",
     },
   ];
 
   return (
     <View style={styles.container}>
-      <StatusBarView />
-      <FlatList
-        data={details}
-        keyExtractor={(data) => data.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.list}>
-            <AppCard
-              title={item.title}
-              subTitle={item.subTitle}
-              image={item.image}
-              percentage={item.percetage}
-              pledged={item.pledged}
-              days={item.days}
-              likes={item.likes}
-              button="back project"
-            />
-          </View>
-        )}
-      />
+      <View style={{ width: "90%" }}>
+        <StatusBarView />
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={details}
+          keyExtractor={(data) => data.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.list}>
+              <AppCard
+                title={item.title}
+                subTitle={item.subTitle}
+                image={item.image}
+                percentage={item.percetage}
+                pledged={item.pledged}
+                days={item.days}
+                likes={item.likes}
+                button="back project"
+                tag={item.tag}
+                location={item.location}
+              />
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
+    width: "100%",
+    alignItems: "center",
+    paddingBottom: 50,
   },
   list: {
     width: "100%",

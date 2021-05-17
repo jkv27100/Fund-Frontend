@@ -5,6 +5,8 @@ import {
   View,
   useColorScheme,
   ProgressBarAndroidComponent,
+  ScrollView,
+  FlatList,
 } from "react-native";
 import AppButton from "./app/components/AppButton";
 import InputField from "./app/components/InputField";
@@ -27,33 +29,30 @@ import theme from "./app/config/theme";
 import AppCard from "./app/components/AppCard";
 import ProgressBar from "./app/components/ProgressBar";
 import PostListScreen from "./app/screens/PostListScreen";
+import Tag from "./app/components/Tag";
+import LocationTag from "./app/components/LocationTag";
+import PostDetailsScreen from "./app/screens/PostDetailsScreen";
+import Carousel from "./app/components/Carousel";
+import ImageContainer from "./app/components/ImageContainer";
+import Scroll from "./app/components/scroll";
+import Comments from "./app/components/Comments";
+import CommentCarousel from "./app/components/CommentCarousel";
+import AppNavigator from "./app/navigation/AppNavigator";
 
 export default function App() {
-  const data = {
-    id: "1",
-    title: "New app for gaming",
-    subTitle: "Install and enjoy the fast",
-    image: require("./app/assets/images/pic.jpg"),
-    percetage: "37",
-    pledged: "$8767",
-    days: "5",
-    likes: "4561",
-  };
-
   return (
-    <View style={styles.container}>
+    <NavigationContainer theme={NavigationTheme}>
       <StatusBar style="light" />
-      <PostListScreen />
-    </View>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
-    justifyContent: "center",
-    alignItems: "center",
+    //justifyContent: "center",
+    //alignItems: "center",
     backgroundColor: theme.colors.primary,
   },
 });
