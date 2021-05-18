@@ -1,12 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SearchBar from "../components/SearchBar";
+import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 
 export default function SearchScreen() {
   return (
     <View style={styles.container}>
-      <SearchBar />
+      <StatusBarView />
+      <View style={{ width: "90%", marginTop: 20 }}>
+        <SearchBar />
+      </View>
+      <View style={styles.list}></View>
     </View>
   );
 }
@@ -14,7 +19,8 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    width: "100%",
     alignItems: "center",
   },
+  list: {},
 });

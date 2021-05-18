@@ -1,6 +1,5 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from "../components/Icon";
 import FeedNavigator from "./FeedNavigator";
 import SearchScreen from "../screens/SearchScreen";
 import NotificationScreen from "../screens/NotificationScreen";
@@ -10,7 +9,7 @@ import theme from "../config/theme";
 
 const Tab = createBottomTabNavigator();
 
-export default function AppNavigator() {
+export default function TabNavigator() {
   return (
     <Tab.Navigator
       tabBarOptions={{

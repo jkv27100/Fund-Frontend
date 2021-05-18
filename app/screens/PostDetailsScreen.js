@@ -17,16 +17,12 @@ import LocationTag from "../components/LocationTag";
 import Carousel from "../components/Carousel";
 import RoundButton from "../components/RoundButton";
 import CommentCarousel from "../components/CommentCarousel";
+import routes from "../navigation/routes";
 
 const minHeaderHeight = 70;
 const maxHeaderHeight = 250;
 
-export default function PostDetailsScreen({
-  title,
-  image,
-  subTitle,
-  percentage,
-}) {
+export default function PostDetailsScreen({ navigation }) {
   const scrollPosition = useRef(new Animated.Value(0)).current;
   const imageUris = [
     require("../assets/images/pic.jpg"),
@@ -184,7 +180,10 @@ export default function PostDetailsScreen({
         </View>
 
         <View style={{ width: "100%", alignItems: "flex-end" }}>
-          <RoundButton icon={"folder-plus"} />
+          <RoundButton
+            icon={"folder-plus"}
+            onPress={() => navigation.navigate(routes.COMMENT)}
+          />
         </View>
 
         <View style={styles.description}>

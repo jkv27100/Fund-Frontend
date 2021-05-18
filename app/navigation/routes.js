@@ -8,4 +8,5 @@ export default Object.freeze({
   PROFILE: "Profile",
   NOTIFICATION: "Notification",
   SEARCH: "Search",
+  COMMENT: "Comment",
 });

@@ -37,13 +37,15 @@ import ImageContainer from "./app/components/ImageContainer";
 import Scroll from "./app/components/scroll";
 import Comments from "./app/components/Comments";
 import CommentCarousel from "./app/components/CommentCarousel";
-import AppNavigator from "./app/navigation/AppNavigator";
+import TabNavigator from "./app/navigation/TabNavigator";
+import DrawerNavigator from "./app/navigation/DrawerNavigator";
+import Header from "./app/components/Header";
 
 export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
       <StatusBar style="light" />
-      <AppNavigator />
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }
@@ -51,8 +53,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //justifyContent: "center",
-    //alignItems: "center",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: theme.colors.primary,
   },
 });

@@ -1,10 +1,11 @@
 import React from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import AppCard from "../components/AppCard";
+import Header from "../components/Header";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 
-export default function PostListScreen() {
+export default function PostListScreen({ navigation }) {
   const details = [
     {
       id: "1",
@@ -58,11 +59,14 @@ export default function PostListScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBarView />
+      <View style={{ width: "100%", padding: 20 }}>
+        <Header onPress={() => navigation.openDrawer()} title="Posts" />
+      </View>
       <View style={{ width: "90%" }}>
-        <StatusBarView />
         <FlatList
-          showsVerticalScrollIndicator={false}
           data={details}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(data) => data.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.list}>
