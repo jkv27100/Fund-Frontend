@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import TabNavigator from "./TabNavigator";
 import theme from "../config/theme";
 import BookmarkScreen from "../screens/BookmarkScreen";
-import HistoryScreen from "../screens/HistoryScreen";
+import TransactionScreen from "../screens/TransactionScreen";
 
 const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
@@ -12,10 +12,12 @@ export default function DrawerNavigator() {
     <Drawer.Navigator
       drawerStyle={{
         backgroundColor: theme.colors.primary,
+        paddingTop: 100,
       }}
       drawerType="slide"
       drawerContentOptions={{
         activeTintColor: theme.colors.white,
+        itemStyle: { marginVertical: 20 },
       }}
     >
       <Drawer.Screen
@@ -37,8 +39,8 @@ export default function DrawerNavigator() {
         }}
       />
       <Drawer.Screen
-        name="History"
-        component={HistoryScreen}
+        name="Transactions"
+        component={TransactionScreen}
         options={{
           drawerIcon: ({ size, color }) => (
             <Ionicons color={color} name="ios-albums" size={size} />

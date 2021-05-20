@@ -1,11 +1,32 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, View, ToastAndroid } from "react-native";
 import AppButton from "../components/AppButton";
+import ErrorMessage from "../components/ErrorMessage";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 
 export default function CommentScreen() {
-  const [state, setState] = useState();
+  const [state, setState] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handlePress = () => {
+    if (state) {
+      setIsLoading(true);
+      setError(false);
+      setTimeout(() => {
+        setIsLoading(false);
+        showToast();
+      }, 2000);
+    } else {
+      setError(true);
+    }
+  };
+
+  const showToast = () => {
+    ToastAndroid.show("Comment Added succesfully", ToastAndroid.SHORT);
+  };
+
   return (
     <View style={styles.container}>
       <StatusBarView />
@@ -29,6 +50,11 @@ export default function CommentScreen() {
           onChangeText={(text) => setState(text)}
         />
       </View>
+      {error ? (
+        <View style={{ paddingTop: 20, paddingLeft: 20 }}>
+          <ErrorMessage message={"This is a required field"} visible={error} />
+        </View>
+      ) : null}
       <View
         style={{
           width: "100%",
@@ -36,7 +62,14 @@ export default function CommentScreen() {
           alignItems: "flex-end",
         }}
       >
-        <AppButton text="Comment" width={100} height={30} fontSize={14} />
+        <AppButton
+          text="Comment"
+          width={100}
+          height={30}
+          fontSize={14}
+          onPress={handlePress}
+          loader={isLoading}
+        />
       </View>
     </View>
   );

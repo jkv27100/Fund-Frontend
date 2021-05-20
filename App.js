@@ -27,14 +27,8 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import NavigationTheme from "./app/navigation/NavigationTheme";
 import theme from "./app/config/theme";
 import AppCard from "./app/components/AppCard";
-import ProgressBar from "./app/components/ProgressBar";
 import PostListScreen from "./app/screens/PostListScreen";
-import Tag from "./app/components/Tag";
-import LocationTag from "./app/components/LocationTag";
 import PostDetailsScreen from "./app/screens/PostDetailsScreen";
-import Carousel from "./app/components/Carousel";
-import ImageContainer from "./app/components/ImageContainer";
-import Scroll from "./app/components/scroll";
 import Comments from "./app/components/Comments";
 import CommentCarousel from "./app/components/CommentCarousel";
 import TabNavigator from "./app/navigation/TabNavigator";
@@ -45,6 +39,9 @@ export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
       <StatusBar style="light" />
+      {/* <View style={styles.container}>
+        
+      </View> */}
       <DrawerNavigator />
     </NavigationContainer>
   );

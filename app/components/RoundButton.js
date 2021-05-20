@@ -1,12 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
 import theme from "../config/theme";
 import Icon from "./Icon";
 
 export default function RoundButton({ icon, onPress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Icon name={icon} size={25} />
+      <FontAwesome5 name={icon} size={25} color={theme.colors.white} />
     </TouchableOpacity>
   );
 }

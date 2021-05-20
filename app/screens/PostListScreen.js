@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     alignItems: "center",
-    paddingBottom: 50,
+    paddingBottom: 200,
   },
   list: {
     width: "100%",

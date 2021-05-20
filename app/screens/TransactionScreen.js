@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../config/theme";
 
-export default function HistoryScreen() {
+export default function TransactionScreen() {
   return (
     <View style={styles.container}>
       <Text style={{ color: theme.colors.white }}>Bookmarks Screen</Text>

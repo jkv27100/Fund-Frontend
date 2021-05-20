@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, TouchableOpacity, StyleSheet, StatusBar } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
 import theme from "../config/theme";
+import Animator from "./Animator";
 
 export default function AppButton({
   text,
@@ -8,6 +9,7 @@ export default function AppButton({
   fontSize = 18,
   width,
   height,
+  loader,
 }) {
   return (
     <TouchableOpacity
@@ -24,16 +26,23 @@ export default function AppButton({
       }}
       onPress={onPress}
     >
-      <Text
-        style={{
-          color: theme.colors.white,
-          fontSize: fontSize,
-          fontWeight: "bold",
-          textTransform: "uppercase",
-        }}
-      >
-        {text}
-      </Text>
+      {loader ? (
+        <Animator
+          src={require("../assets/animations/btn-loading.json")}
+          width={25}
+        />
+      ) : (
+        <Text
+          style={{
+            color: theme.colors.white,
+            fontSize: fontSize,
+            fontWeight: "bold",
+            textTransform: "uppercase",
+          }}
+        >
+          {text}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }
