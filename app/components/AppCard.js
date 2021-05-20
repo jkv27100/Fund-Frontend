@@ -29,6 +29,10 @@ export default function AppCard({
   location,
 }) {
   const [collapsed, setCollapsed] = useState(true);
+  const [bookmarked, setBookmarked] = useState(false);
+  const [upvoted, setUpvoted] = useState(false);
+  const [downVoted, setDownVoted] = useState(false);
+
   const navigation = useNavigation();
   return (
     <TouchableWithoutFeedback onPress={() => setCollapsed(!collapsed)}>
@@ -45,9 +49,24 @@ export default function AppCard({
               </Text>
             </View>
             <View style={styles.iconContainer}>
-              <Icon name="bookmark" size={20} />
-              <Icon name="thumbs-up" size={20} />
-              <Icon name="thumbs-down" size={20} />
+              <Icon
+                name="bookmark"
+                size={22}
+                onPress={() => setBookmarked(!bookmarked)}
+                color={bookmarked ? theme.colors.yellow : theme.colors.white}
+              />
+              <Icon
+                name="thumbs-up"
+                size={22}
+                onPress={() => setUpvoted(!upvoted)}
+                color={upvoted ? theme.colors.yellow : theme.colors.white}
+              />
+              <Icon
+                name="thumbs-down"
+                size={22}
+                onPress={() => setDownVoted(!downVoted)}
+                color={downVoted ? theme.colors.yellow : theme.colors.white}
+              />
             </View>
           </View>
           <View style={styles.progress}>

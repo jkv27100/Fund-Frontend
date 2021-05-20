@@ -109,6 +109,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "90%",
-    marginTop: 10,
+    marginTop: 30,
   },
 });

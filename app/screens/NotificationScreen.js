@@ -1,84 +1,93 @@
-import React, {useState} from "react";
-import { Animated, TouchableHighlight, TouchableOpacity, StyleSheet, Text, View, SafeAreaView, SectionList, StatusBar} from "react-native";
-import { SwipeListView } from 'react-native-swipe-list-view';
+import React, { useState } from "react";
+import {
+  Animated,
+  TouchableHighlight,
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  SafeAreaView,
+} from "react-native";
+import { SwipeListView } from "react-native-swipe-list-view";
 import theme from "../config/theme";
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
 const Notifications = [
   {
-      id: 1,
-      title: 'Someone likes your post!',
-      details: 'Madara Uchiha liked your post.'
+    id: 1,
+    title: "Someone likes your post!",
+    details: "Madara Uchiha liked your post.",
   },
   {
-      id: 2,
-      title: 'You got 14 upvotes!',
-      details: 'Your latest post has 14 upvotes now.'
+    id: 2,
+    title: "You got 14 upvotes!",
+    details: "Your latest post has 14 upvotes now.",
   },
   {
-      id: 3,
-      title: 'Goal!',
-      details: 'A project you backed has met the required goal amount!'
+    id: 3,
+    title: "Goal!",
+    details: "A project you backed has met the required goal amount!",
   },
   {
-      id: 4,
-      title: 'SAASUKE',
-      details: 'bla bla bla bla bla.'
+    id: 4,
+    title: "SAASUKE",
+    details: "bla bla bla bla bla.",
   },
   {
-      id: 5,
-      title: 'NARUTO',
-      details: 'bla bla bla bla bla.'
+    id: 5,
+    title: "NARUTO",
+    details: "bla bla bla bla bla.",
   },
   {
-      id: 6,
-      title: 'SASUKEE',
-      details: 'bla bla bla bla bla.'
+    id: 6,
+    title: "SASUKEE",
+    details: "bla bla bla bla bla.",
   },
   {
-      id: 7,
-      title: 'NARUTOO',
-      details: 'bla bla bla bla bla.'
+    id: 7,
+    title: "NARUTOO",
+    details: "bla bla bla bla bla.",
   },
   {
-      id: 8,
-      title: 'SASUKEEE',
-      details: 'bla bla bla bla bla.'
+    id: 8,
+    title: "SASUKEEE",
+    details: "bla bla bla bla bla.",
   },
   {
-      id: 9,
-      title: 'NAARUTOOO',
-      details:'bla bla bla bla bla.'
+    id: 9,
+    title: "NAARUTOOO",
+    details: "bla bla bla bla bla.",
   },
   {
-      id: 10,
-      title: 'SAAASUUKEEE',
-      details: 'bla bla bla bla bla.'
+    id: 10,
+    title: "SAAASUUKEEE",
+    details: "bla bla bla bla bla.",
   },
   {
     id: 11,
-    title: 'NAARUTOOOO',
-    details: 'bla bla bla bla bla.'
-  }, 
+    title: "NAARUTOOOO",
+    details: "bla bla bla bla bla.",
+  },
   {
     id: 12,
-    title: 'SAASUUU',
-    details: 'bla bla bla bla bla.'
+    title: "SAASUUU",
+    details: "bla bla bla bla bla.",
   },
   {
     id: 13,
-    title: 'NARUUU',
-    details: 'bla bla bla bla bla.'
+    title: "NARUUU",
+    details: "bla bla bla bla bla.",
   },
 ];
 
-
-const NotificationScreen = ({navigation}) => {
+const NotificationScreen = ({ navigation }) => {
   const [listData, setListData] = useState(
     Notifications.map((NotificationItem, index) => ({
       key: `${index}`,
       title: NotificationItem.title,
       details: NotificationItem.details,
-    })),
+    }))
   );
 
   const closeRow = (rowMap, rowKey) => {
@@ -90,32 +99,32 @@ const NotificationScreen = ({navigation}) => {
   const deleteRow = (rowMap, rowKey) => {
     closeRow(rowMap, rowKey);
     const newData = [...listData];
-    const prevIndex = listData.findIndex(item => item.key === rowKey);
+    const prevIndex = listData.findIndex((item) => item.key === rowKey);
     newData.splice(prevIndex, 1);
     setListData(newData);
   };
 
-  const onRowDidOpen = rowKey => {
-    console.log('This row opened', rowKey);
+  const onRowDidOpen = (rowKey) => {
+    console.log("This row opened", rowKey);
   };
 
-  const onLeftActionStatusChange = rowKey => {
-    console.log('onLeftActionStatusChange', rowKey);
+  const onLeftActionStatusChange = (rowKey) => {
+    console.log("onLeftActionStatusChange", rowKey);
   };
 
-  const onRightActionStatusChange = rowKey => {
-    console.log('onRightActionStatusChange', rowKey);
+  const onRightActionStatusChange = (rowKey) => {
+    console.log("onRightActionStatusChange", rowKey);
   };
 
-  const onRightAction = rowKey => {
-    console.log('onRightAction', rowKey);
+  const onRightAction = (rowKey) => {
+    console.log("onRightAction", rowKey);
   };
 
-  const onLeftAction = rowKey => {
-    console.log('onLeftAction', rowKey);
+  const onLeftAction = (rowKey) => {
+    console.log("onLeftAction", rowKey);
   };
 
-  const VisibleItem = props => {
+  const VisibleItem = (props) => {
     const {
       data,
       rowHeightAnimatedValue,
@@ -136,22 +145,24 @@ const NotificationScreen = ({navigation}) => {
 
     return (
       <SafeAreaView>
-      <Animated.View
-        style={[styles.rowFront, {height: rowHeightAnimatedValue}]}>
-        <TouchableHighlight
-          style={styles.rowFrontVisible}
-          onPress={() => console.log('Element touched')}
-          underlayColor={'#aaa'}>
-          <View>
-            <Text style={styles.title} numberOfLines={1}>
-              {data.item.title}
-            </Text>
-            <Text style={styles.details} numberOfLines={1}>
-              {data.item.details}
-            </Text>
-          </View>
-        </TouchableHighlight>
-      </Animated.View>
+        <Animated.View
+          style={[styles.rowFront, { height: rowHeightAnimatedValue }]}
+        >
+          <TouchableHighlight
+            style={styles.rowFrontVisible}
+            onPress={() => console.log("Element touched")}
+            underlayColor={"#aaa"}
+          >
+            <View>
+              <Text style={styles.title} numberOfLines={1}>
+                {data.item.title}
+              </Text>
+              <Text style={styles.details} numberOfLines={1}>
+                {data.item.details}
+              </Text>
+            </View>
+          </TouchableHighlight>
+        </Animated.View>
       </SafeAreaView>
     );
   };
@@ -168,7 +179,7 @@ const NotificationScreen = ({navigation}) => {
     );
   };
 
-  const HiddenItemWithActions = props => {
+  const HiddenItemWithActions = (props) => {
     const {
       swipeAnimatedValue,
       leftActionActivated,
@@ -182,22 +193,25 @@ const NotificationScreen = ({navigation}) => {
     if (rightActionActivated) {
       Animated.spring(rowActionAnimatedValue, {
         toValue: 500,
-        useNativeDriver: false
+        useNativeDriver: false,
       }).start();
     } else {
       Animated.spring(rowActionAnimatedValue, {
         toValue: 75,
-        useNativeDriver: false
+        useNativeDriver: false,
       }).start();
     }
 
     return (
-      <Animated.View style={[styles.rowBack, {height: rowHeightAnimatedValue}]}>
+      <Animated.View
+        style={[styles.rowBack, { height: rowHeightAnimatedValue }]}
+      >
         <Text>Left</Text>
         {!leftActionActivated && (
           <TouchableOpacity
             style={[styles.backRightBtn, styles.backRightBtnLeft]}
-            onPress={onClose}>
+            onPress={onClose}
+          >
             <MaterialCommunityIcons
               name="close-circle-outline"
               size={25}
@@ -215,10 +229,12 @@ const NotificationScreen = ({navigation}) => {
                 flex: 1,
                 width: rowActionAnimatedValue,
               },
-            ]}>
+            ]}
+          >
             <TouchableOpacity
               style={[styles.backRightBtn, styles.backRightBtnRight]}
-              onPress={onDelete}>
+              onPress={onDelete}
+            >
               <Animated.View
                 style={[
                   styles.trash,
@@ -228,12 +244,13 @@ const NotificationScreen = ({navigation}) => {
                         scale: swipeAnimatedValue.interpolate({
                           inputRange: [-90, -45],
                           outputRange: [1, 0],
-                          extrapolate: 'clamp',
+                          extrapolate: "clamp",
                         }),
                       },
                     ],
                   },
-                ]}>
+                ]}
+              >
                 <MaterialCommunityIcons
                   name="trash-can-outline"
                   size={25}
@@ -265,9 +282,10 @@ const NotificationScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content"/>
+      <StatusBar barStyle="dark-content" />
       {/* <StatusBar backgroundColor="#FF6347" barStyle="light-content"/> */}
-      <SwipeListView style={{marginTop:50}}
+      <SwipeListView
+        style={{ marginTop: 50 }}
         data={listData}
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
@@ -288,61 +306,59 @@ const NotificationScreen = ({navigation}) => {
   );
 };
 
-
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#464B58',
+    backgroundColor: theme.colors.primary,
     flex: 1,
   },
   backTextWhite: {
-    color: '#FFF',
+    color: theme.colors.white,
   },
   rowFront: {
-    backgroundColor: '#7e88a3',
+    backgroundColor: "#7e88a3",
     borderRadius: 5,
     height: 60,
     margin: 5,
     marginBottom: 15,
-    shadowColor: '#999',
-    shadowOffset: {width: 0, height: 1},
+    shadowColor: "#999",
+    shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
     elevation: 5,
   },
   rowFrontVisible: {
-    backgroundColor: '#7e88a3',
+    backgroundColor: "#7e88a3",
     borderRadius: 5,
     height: 60,
     padding: 10,
     marginBottom: 15,
   },
   rowBack: {
-    alignItems: 'center',
-    backgroundColor: '#DDD',
+    alignItems: "center",
+    backgroundColor: "#DDD",
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     paddingLeft: 15,
     margin: 5,
     marginBottom: 15,
     borderRadius: 5,
   },
   backRightBtn: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     bottom: 0,
-    justifyContent: 'center',
-    position: 'absolute',
+    justifyContent: "center",
+    position: "absolute",
     top: 0,
     width: 75,
     paddingRight: 17,
   },
   backRightBtnLeft: {
-    backgroundColor: '#1f65ff',
+    backgroundColor: "#1f65ff",
     right: 75,
   },
   backRightBtnRight: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
     right: 0,
     borderTopRightRadius: 5,
     borderBottomRightRadius: 5,
@@ -354,13 +370,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
-    color: '#FFF',
+    color: "#FFF",
   },
   details: {
     fontSize: 12,
-    color: '#FFF',
+    color: "#FFF",
   },
 });
 export default NotificationScreen;

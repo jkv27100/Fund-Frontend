@@ -1,9 +1,14 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import theme from "../config/theme";
 
-export default function Icon({ name, size = 35, onPress }) {
+export default function Icon({
+  name,
+  size = 35,
+  onPress,
+  color = theme.colors.white,
+}) {
   return (
     <TouchableOpacity
       style={{
@@ -14,7 +19,7 @@ export default function Icon({ name, size = 35, onPress }) {
       }}
       onPress={onPress}
     >
-      <FontAwesome5 name={name} color={theme.colors.white} size={size} />
+      <FontAwesome name={name} color={color} size={size} />
     </TouchableOpacity>
   );
 }
