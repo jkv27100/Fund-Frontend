@@ -1,39 +1,10 @@
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  useColorScheme,
-  ProgressBarAndroidComponent,
-  ScrollView,
-  FlatList,
-} from "react-native";
-import AppButton from "./app/components/AppButton";
-import InputField from "./app/components/InputField";
-import StatusBarView from "./app/components/StatusBarView";
-import Steps from "./app/components/Steps";
-import TextButton from "./app/components/TextButton";
-import LoginScreen from "./app/screens/LoginScreen";
-import OnBoardingScreen from "./app/screens/OnBoardingScreen";
-import OtpScreen from "./app/screens/OtpScreen";
-import PasswordConfirmScreen from "./app/screens/PasswordConfirmScreen";
-import RegisterScreen from "./app/screens/RegisterScreen";
-import {
-  NavigationContainer,
-  DarkTheme,
-  DefaultTheme,
-} from "@react-navigation/native";
-import AuthNavigator from "./app/navigation/AuthNavigator";
-import NavigationTheme from "./app/navigation/NavigationTheme";
+import { StyleSheet } from "react-native";
 import theme from "./app/config/theme";
-import AppCard from "./app/components/AppCard";
-import PostListScreen from "./app/screens/PostListScreen";
-import PostDetailsScreen from "./app/screens/PostDetailsScreen";
-import Comments from "./app/components/Comments";
-import CommentCarousel from "./app/components/CommentCarousel";
-import TabNavigator from "./app/navigation/TabNavigator";
 import DrawerNavigator from "./app/navigation/DrawerNavigator";
-import Header from "./app/components/Header";
+import NavigationTheme from "./app/navigation/NavigationTheme";
 
 export default function App() {
   return (

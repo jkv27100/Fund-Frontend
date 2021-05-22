@@ -5,6 +5,7 @@ import TabNavigator from "./TabNavigator";
 import theme from "../config/theme";
 import BookmarkScreen from "../screens/BookmarkScreen";
 import TransactionScreen from "../screens/TransactionScreen";
+import PosterRoleNavigator from "./PosterRoleNavigator";
 
 const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
@@ -44,6 +45,15 @@ export default function DrawerNavigator() {
         options={{
           drawerIcon: ({ size, color }) => (
             <Ionicons color={color} name="ios-albums" size={size} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="PosterApply"
+        component={PosterRoleNavigator}
+        options={{
+          drawerIcon: ({ size, color }) => (
+            <Ionicons color={color} name="ios-card" size={size} />
           ),
         }}
       />

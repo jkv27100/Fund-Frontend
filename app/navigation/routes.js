@@ -9,4 +9,7 @@ export default Object.freeze({
   NOTIFICATION: "Notification",
   SEARCH: "Search",
   COMMENT: "Comment",
+  CHARITY: "Charity",
+  KICKSTARTER: "KickStarter",
+  AFTERAPPLIED: "AfterApplied",
 });
