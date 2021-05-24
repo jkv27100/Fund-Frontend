@@ -1,5 +1,6 @@
+import { FontAwesome5 } from "@expo/vector-icons";
 import React from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import theme from "../config/theme";
 import Animator from "./Animator";
 
@@ -10,6 +11,7 @@ export default function AppButton({
   width,
   height,
   loader,
+  name,
 }) {
   return (
     <TouchableOpacity
@@ -26,7 +28,9 @@ export default function AppButton({
       }}
       onPress={onPress}
     >
-      {loader ? (
+      {name ? (
+        <FontAwesome5 name={name} size={20} color={theme.colors.white} />
+      ) : loader ? (
         <Animator
           src={require("../assets/animations/btn-loading.json")}
           width={25}

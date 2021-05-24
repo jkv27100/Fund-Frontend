@@ -1,11 +1,12 @@
-import React from "react";
+import { FontAwesome5 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import FeedNavigator from "./FeedNavigator";
-import SearchScreen from "../screens/SearchScreen";
+import React from "react";
+import theme from "../config/theme";
+import NewPostScreen from "../screens/NewPostScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import { FontAwesome5 } from "@expo/vector-icons";
-import theme from "../config/theme";
+import SearchScreen from "../screens/SearchScreen";
+import FeedNavigator from "./FeedNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,16 @@ export default function TabNavigator() {
           ),
         }}
       />
+      <Tab.Screen
+        name="AddPost"
+        component={NewPostScreen}
+        options={{
+          tabBarIcon: ({ size, color }) => (
+            <FontAwesome5 color={color} name="plus-circle" size={size} />
+          ),
+        }}
+      />
+
       <Tab.Screen
         name="Notification"
         component={NotificationScreen}

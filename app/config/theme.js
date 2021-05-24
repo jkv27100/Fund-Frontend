@@ -5,6 +5,7 @@ const colors = {
   yellow: "#F2DD1F",
   danger: "#f22b2b",
   black: "#000000",
+  success: "#16D84C",
 };
 
 const buttonSizes = {

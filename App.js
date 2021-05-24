@@ -9,7 +9,7 @@ import NavigationTheme from "./app/navigation/NavigationTheme";
 export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       {/* <View style={styles.container}>
         
       </View> */}

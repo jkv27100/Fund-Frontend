@@ -12,4 +12,5 @@ export default Object.freeze({
   CHARITY: "Charity",
   KICKSTARTER: "KickStarter",
   AFTERAPPLIED: "AfterApplied",
+  NEW_POST: "AddPost",
 });
