@@ -1,19 +1,25 @@
-import React, { useRef } from "react";
+import React from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import ImageContainer from "./ImageContainer";
+import ImageInput from "./ImageInput";
 
-export default function Carousel({ imageUris = [] }) {
-  const scrollView = useRef();
-
+export default function ImageInputList({
+  imageUris = [],
+  onAddImage,
+  onRemoveImage,
+}) {
   return (
     <View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.container}>
           {imageUris.map((uri) => (
             <View key={uri}>
-              <ImageContainer uri={uri} />
+              <ImageInput
+                imageUri={uri}
+                onChangeImage={() => onRemoveImage(uri)}
+              />
             </View>
           ))}
+          <ImageInput onChangeImage={(uri) => onAddImage(uri)} />
         </View>
       </ScrollView>
     </View>

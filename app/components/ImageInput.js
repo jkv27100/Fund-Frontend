@@ -1,15 +1,13 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Alert, Image, StyleSheet, TouchableOpacity } from "react-native";
 import theme from "../config/theme";
 
-export default function ImageInput() {
+export default function ImageInput({ imageUri, onChangeImage }) {
   useEffect(() => {
     requestPermission();
   }, []);
-
-  const [imageUri, setImageUri] = useState("");
 
   const requestPermission = async () => {
     // Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -27,7 +25,7 @@ export default function ImageInput() {
       });
 
       if (!result.cancelled) {
-        setImageUri(result.uri);
+        onChangeImage(result.uri);
       }
     } catch (error) {
       Alert.alert("Something Went Wrong", error);
@@ -39,7 +37,7 @@ export default function ImageInput() {
   };
   const handleDelete = () => {
     Alert.alert("Delete", "Are you sure you want to delete this image?", [
-      { text: "Yes", onPress: () => setImageUri("") },
+      { text: "Yes", onPress: () => onChangeImage(null) },
       { text: "No" },
     ]);
   };

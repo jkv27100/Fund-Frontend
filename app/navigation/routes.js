@@ -13,4 +13,5 @@ export default Object.freeze({
   KICKSTARTER: "KickStarter",
   AFTERAPPLIED: "AfterApplied",
   NEW_POST: "AddPost",
+  NEW_POST2: "Post2",
 });

@@ -2,11 +2,11 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import theme from "../config/theme";
-import NewPostScreen from "../screens/NewPostScreen";
 import NotificationScreen from "../screens/NotificationScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SearchScreen from "../screens/SearchScreen";
 import FeedNavigator from "./FeedNavigator";
+import NewPostNavigator from "./NewPostNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,10 +42,10 @@ export default function TabNavigator() {
       />
       <Tab.Screen
         name="AddPost"
-        component={NewPostScreen}
+        component={NewPostNavigator}
         options={{
           tabBarIcon: ({ size, color }) => (
-            <FontAwesome5 color={color} name="plus-circle" size={size} />
+            <FontAwesome5 color={color} name="plus-circle" size={size * 1.5} />
           ),
         }}
       />

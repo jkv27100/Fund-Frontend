@@ -19,7 +19,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function CharityApplicationScreen({ navigation }) {
+  const [imageUri, setImageUri] = useState("");
   const [visible, setVisible] = useState(false);
+
   const handleSubmit = (values) => {
     setVisible(true);
     setTimeout(() => {
@@ -40,7 +42,7 @@ export default function CharityApplicationScreen({ navigation }) {
         {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
           <>
             <View style={styles.image}>
-              <ImageInput />
+              <ImageInput imageUri={imageUri} setImageUri={setImageUri} />
               <Text
                 style={{
                   color: theme.colors.white,

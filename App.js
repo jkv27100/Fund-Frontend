@@ -1,5 +1,4 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet } from "react-native";
 import theme from "./app/config/theme";
@@ -9,7 +8,6 @@ import NavigationTheme from "./app/navigation/NavigationTheme";
 export default function App() {
   return (
     <NavigationContainer theme={NavigationTheme}>
-      <StatusBar style="auto" />
       {/* <View style={styles.container}>
         
       </View> */}
