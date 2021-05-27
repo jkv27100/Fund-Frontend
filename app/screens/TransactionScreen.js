@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import StatusBarView from "../components/StatusBarView";
+import Transaction from "../components/Transaction";
 import theme from "../config/theme";
 
 export default function TransactionScreen() {
@@ -11,6 +12,9 @@ export default function TransactionScreen() {
         <Text style={{ color: theme.colors.white, fontSize: 25, padding: 20 }}>
           Transaction History
         </Text>
+      </View>
+      <View style={styles.content}>
+        <Transaction />
       </View>
     </View>
   );
@@ -29,6 +33,10 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.yellow,
     height: 70,
     justifyContent: "center",
+    marginTop: 20,
+  },
+  content: {
+    width: "90%",
     marginTop: 40,
   },
 });

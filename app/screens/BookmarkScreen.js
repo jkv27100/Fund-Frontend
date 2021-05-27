@@ -1,11 +1,38 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
+import data from "../api/postData";
+import AppCard from "../components/AppCard";
+import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 
 export default function BookmarkScreen() {
   return (
     <View style={styles.container}>
-      <Text style={{ color: theme.colors.white }}>Bookmarks Screen</Text>
+      <StatusBarView />
+      <View style={{ width: "90%", paddingTop: 40 }}>
+        <FlatList
+          data={data.postDetails}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(data) => data.id.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.list}>
+              <AppCard
+                title={item.title}
+                subTitle={item.subTitle}
+                image={item.image}
+                percentage={item.percetage}
+                pledged={item.pledged}
+                days={item.days}
+                likes={item.likes}
+                button="back project"
+                tag={item.tag}
+                location={item.location}
+                isBookMarked={true}
+              />
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 }
@@ -13,7 +40,7 @@ export default function BookmarkScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: theme.colors.primary,
     alignItems: "center",
   },
 });

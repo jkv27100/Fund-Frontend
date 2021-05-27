@@ -1,20 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
+  Image,
   StyleSheet,
   Text,
-  View,
-  Image,
   TouchableWithoutFeedback,
+  View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Collapsible from "react-native-collapsible";
-import Icon from "./Icon";
 import theme from "../config/theme";
-import ProgressBar from "./ProgressBar";
-import AppButton from "./AppButton";
-import Tag from "./Tag";
-import LocationTag from "./LocationTag";
 import routes from "../navigation/routes";
+import AppButton from "./AppButton";
+import Icon from "./Icon";
+import LocationTag from "./LocationTag";
+import ProgressBar from "./ProgressBar";
+import Tag from "./Tag";
 
 export default function AppCard({
   title,
@@ -27,6 +27,7 @@ export default function AppCard({
   button,
   tag,
   location,
+  isBookMarked,
 }) {
   const [collapsed, setCollapsed] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
@@ -52,8 +53,12 @@ export default function AppCard({
               <Icon
                 name="bookmark"
                 size={22}
-                onPress={() => setBookmarked(!bookmarked)}
-                color={bookmarked ? theme.colors.yellow : theme.colors.white}
+                onPress={() => setBookmarked(!isBookMarked)}
+                color={
+                  isBookMarked || bookmarked
+                    ? theme.colors.yellow
+                    : theme.colors.white
+                }
               />
               <Icon
                 name="thumbs-up"
