@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Formik } from "formik";
+import React from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import * as Yup from "yup";
 import AppButton from "../components/AppButton";
+import ErrorMessage from "../components/ErrorMessage";
+import Icon from "../components/Icon";
 import InputField from "../components/InputField";
 import StatusBarView from "../components/StatusBarView";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import theme from "../config/theme";
-import ErrorMessage from "../components/ErrorMessage";
 import Steps from "../components/Steps";
-import Icon from "../components/Icon";
+import theme from "../config/theme";
 import routes from "../navigation/routes";
 
 const validationSchema = Yup.object().shape({
@@ -22,63 +22,74 @@ export default function PasswordConfirmScreen({ navigation }) {
   };
   return (
     <View style={styles.container}>
-      <StatusBarView />
-
-      <Formik
-        initialValues={{ password: "", cpass: "" }}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}
+      <ScrollView
+        style={{ width: "100%" }}
+        contentContainerStyle={{ alignItems: "center" }}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
-          <View style={styles.content}>
-            <Icon
-              name="arrow-left"
-              size={30}
-              onPress={() => navigation.navigate(routes.REGISTER_2)}
-            />
-            <View style={styles.header}>
-              <Text style={{ fontSize: 36, color: theme.colors.white }}>
-                Set Password
-              </Text>
-              <Steps total="3" step="3" />
-            </View>
-            <InputField
-              placeholder="password"
-              name="lock"
-              autoCapitalize="none"
-              onBlur={() => setFieldTouched("password")}
-              onChangeText={handleChange("password")}
-              autoCorrect={false}
-              secureTextEntry
-            />
-            <ErrorMessage
-              message={errors.password}
-              visible={touched.password}
-            />
-            <InputField
-              placeholder="confirm"
-              name="lock"
-              autoCapitalize="none"
-              onBlur={() => setFieldTouched("cpass")}
-              onChangeText={handleChange("cpass")}
-              autoCorrect={false}
-              secureTextEntry
-            />
-            <ErrorMessage message={errors.cpass} visible={touched.cpass} />
+        <StatusBarView />
 
-            <View style={styles.bottom}>
-              <View style={styles.btn}>
-                <AppButton
-                  text="Sign Up"
-                  onPress={handleSubmit}
-                  width={theme.buttonSizes.login.width}
-                  height={theme.buttonSizes.login.height}
-                />
+        <Formik
+          initialValues={{ password: "", cpass: "" }}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}
+        >
+          {({
+            handleChange,
+            handleSubmit,
+            errors,
+            setFieldTouched,
+            touched,
+          }) => (
+            <View style={styles.content}>
+              <Icon
+                name="arrow-left"
+                size={30}
+                onPress={() => navigation.navigate(routes.REGISTER_2)}
+              />
+              <View style={styles.header}>
+                <Text style={{ fontSize: 36, color: theme.colors.white }}>
+                  Set Password
+                </Text>
+                <Steps total="3" step="3" />
+              </View>
+              <InputField
+                placeholder="password"
+                name="lock"
+                autoCapitalize="none"
+                onBlur={() => setFieldTouched("password")}
+                onChangeText={handleChange("password")}
+                autoCorrect={false}
+                secureTextEntry
+              />
+              <ErrorMessage
+                message={errors.password}
+                visible={touched.password}
+              />
+              <InputField
+                placeholder="confirm"
+                name="lock"
+                autoCapitalize="none"
+                onBlur={() => setFieldTouched("cpass")}
+                onChangeText={handleChange("cpass")}
+                autoCorrect={false}
+                secureTextEntry
+              />
+              <ErrorMessage message={errors.cpass} visible={touched.cpass} />
+
+              <View style={styles.bottom}>
+                <View style={styles.btn}>
+                  <AppButton
+                    text="Sign Up"
+                    onPress={handleSubmit}
+                    width={theme.buttonSizes.login.width}
+                    height={theme.buttonSizes.login.height}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        )}
-      </Formik>
+          )}
+        </Formik>
+      </ScrollView>
     </View>
   );
 }
@@ -94,7 +105,7 @@ const styles = StyleSheet.create({
     marginTop: "10%",
   },
   header: {
-    marginBottom: "60%",
+    marginBottom: "45%",
     marginTop: 40,
     flexDirection: "row",
     alignItems: "center",

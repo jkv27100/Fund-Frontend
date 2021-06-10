@@ -1,13 +1,13 @@
+import { Formik } from "formik";
 import React from "react";
-import { StyleSheet, Text, View, StatusBar } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import * as Yup from "yup";
 import AppButton from "../components/AppButton";
+import ErrorMessage from "../components/ErrorMessage";
 import InputField from "../components/InputField";
 import StatusBarView from "../components/StatusBarView";
 import TextButton from "../components/TextButton";
-import { Formik } from "formik";
-import * as Yup from "yup";
 import theme from "../config/theme";
-import ErrorMessage from "../components/ErrorMessage";
 import routes from "../navigation/routes";
 
 const validationSchema = Yup.object().shape({
@@ -23,63 +23,74 @@ export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <StatusBarView />
-      <Formik
-        initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
-        validationSchema={validationSchema}
+      <ScrollView
+        style={{ width: "100%" }}
+        contentContainerStyle={{ alignItems: "center" }}
       >
-        {({ handleChange, handleSubmit, errors, setFieldTouched, touched }) => (
-          <View style={styles.content}>
-            <Text style={styles.text}>Log In</Text>
-            <InputField
-              placeholder="email"
-              name="envelope"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              onBlur={() => setFieldTouched("email")}
-              onChangeText={handleChange("email")}
-              autoCorrect={false}
-            />
-            <ErrorMessage message={errors.email} visible={touched.email} />
-            <InputField
-              placeholder="password"
-              name="lock"
-              autoCapitalize="none"
-              onBlur={() => setFieldTouched("password")}
-              onChangeText={handleChange("password")}
-              autoCorrect={false}
-              secureTextEntry
-            />
-            <ErrorMessage
-              message={errors.password}
-              visible={touched.password}
-            />
-            <View style={styles.bottom}>
-              <TextButton
-                text="Forgot Password"
-                onPress={handlePasswordPress}
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          onSubmit={(values) => console.log(values)}
+          validationSchema={validationSchema}
+        >
+          {({
+            handleChange,
+            handleSubmit,
+            errors,
+            setFieldTouched,
+            touched,
+          }) => (
+            <View style={styles.content}>
+              <Text style={styles.text}>Log In</Text>
+              <InputField
+                placeholder="email"
+                name="envelope"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                onBlur={() => setFieldTouched("email")}
+                onChangeText={handleChange("email")}
+                autoCorrect={false}
               />
-              <View style={styles.btn}>
-                <AppButton
-                  text="Log in"
-                  onPress={handleSubmit}
-                  width={theme.buttonSizes.login.width}
-                  height={theme.buttonSizes.login.height}
-                />
-              </View>
-              <View style={styles.signup}>
-                <Text style={{ color: theme.colors.white }}>
-                  First Time Here ?{" "}
-                </Text>
+              <ErrorMessage message={errors.email} visible={touched.email} />
+              <InputField
+                placeholder="password"
+                name="lock"
+                autoCapitalize="none"
+                onBlur={() => setFieldTouched("password")}
+                onChangeText={handleChange("password")}
+                autoCorrect={false}
+                secureTextEntry
+              />
+              <ErrorMessage
+                message={errors.password}
+                visible={touched.password}
+              />
+              <View style={styles.bottom}>
                 <TextButton
-                  text="Sign Up"
-                  onPress={() => navigation.navigate(routes.REGISTER_1)}
+                  text="Forgot Password"
+                  onPress={handlePasswordPress}
                 />
+                <View style={styles.btn}>
+                  <AppButton
+                    text="Log in"
+                    onPress={handleSubmit}
+                    width={theme.buttonSizes.login.width}
+                    height={theme.buttonSizes.login.height}
+                  />
+                </View>
+                <View style={styles.signup}>
+                  <Text style={{ color: theme.colors.white }}>
+                    First Time Here ?{" "}
+                  </Text>
+                  <TextButton
+                    text="Sign Up"
+                    onPress={() => navigation.navigate(routes.REGISTER_1)}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        )}
-      </Formik>
+          )}
+        </Formik>
+      </ScrollView>
     </View>
   );
 }
@@ -111,5 +122,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: 20,
+    paddingBottom: 20,
   },
 });

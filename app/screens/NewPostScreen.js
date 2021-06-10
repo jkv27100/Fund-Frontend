@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Yup from "yup";
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
@@ -44,79 +44,84 @@ export default function NewPostScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBarView />
-      <View style={styles.topSection}>
-        <ImageInput imageUri={profileImage} onChangeImage={setProfileImage} />
-        <Steps total="2" step="1" />
-      </View>
-      <View style={styles.inputSection}>
-        <Formik
-          initialValues={{ title: "", subTitle: "", amount: "" }}
-          onSubmit={handleSubmit}
-          validationSchema={validationSchema}
-        >
-          {({
-            handleChange,
-            handleSubmit,
-            errors,
-            setFieldTouched,
-            touched,
-          }) => (
-            <>
-              <View style={styles.content}>
-                <InputField
-                  placeholder="Title"
-                  onBlur={() => setFieldTouched("title")}
-                  onChangeText={handleChange("title")}
-                />
-                <ErrorMessage message={errors.title} visible={touched.title} />
-                <InputField
-                  placeholder="Subtitle"
-                  onBlur={() => setFieldTouched("subTitle")}
-                  onChangeText={handleChange("subTitle")}
-                />
-                <ErrorMessage
-                  message={errors.subTitle}
-                  visible={touched.subTitle}
-                />
-                <InputField
-                  placeholder="Goal Amount"
-                  keyboardType="number-pad"
-                  onBlur={() => setFieldTouched("amount")}
-                  onChangeText={handleChange("amount")}
-                />
-                <ErrorMessage
-                  message={errors.amount}
-                  visible={touched.amount}
-                />
-                <ItemPIcker
-                  selectedItem={selectedItem}
-                  setSelectedItem={setSelectedItem}
-                />
-                <Text style={{ color: theme.colors.white, fontSize: 14 }}>
-                  Add Extra Images
-                </Text>
-                <ImageInputList
-                  imageUris={imageUris}
-                  onAddImage={(uri) => handleAdd(uri)}
-                  onRemoveImage={(uri) => handleRemove(uri)}
-                />
-                <View style={styles.bottom}>
-                  <View style={styles.btn}>
-                    <AppButton
-                      text="Next"
-                      onPress={handleSubmit}
-                      width={theme.buttonSizes.login.width}
-                      height={theme.buttonSizes.login.height}
-                      loader={loading}
-                    />
+      <ScrollView style={{ width: "100%" }}>
+        <StatusBarView />
+        <View style={styles.topSection}>
+          <ImageInput imageUri={profileImage} onChangeImage={setProfileImage} />
+          <Steps total="2" step="1" />
+        </View>
+        <View style={styles.inputSection}>
+          <Formik
+            initialValues={{ title: "", subTitle: "", amount: "" }}
+            onSubmit={handleSubmit}
+            validationSchema={validationSchema}
+          >
+            {({
+              handleChange,
+              handleSubmit,
+              errors,
+              setFieldTouched,
+              touched,
+            }) => (
+              <>
+                <View style={styles.content}>
+                  <InputField
+                    placeholder="Title"
+                    onBlur={() => setFieldTouched("title")}
+                    onChangeText={handleChange("title")}
+                  />
+                  <ErrorMessage
+                    message={errors.title}
+                    visible={touched.title}
+                  />
+                  <InputField
+                    placeholder="Subtitle"
+                    onBlur={() => setFieldTouched("subTitle")}
+                    onChangeText={handleChange("subTitle")}
+                  />
+                  <ErrorMessage
+                    message={errors.subTitle}
+                    visible={touched.subTitle}
+                  />
+                  <InputField
+                    placeholder="Goal Amount"
+                    keyboardType="number-pad"
+                    onBlur={() => setFieldTouched("amount")}
+                    onChangeText={handleChange("amount")}
+                  />
+                  <ErrorMessage
+                    message={errors.amount}
+                    visible={touched.amount}
+                  />
+                  <ItemPIcker
+                    selectedItem={selectedItem}
+                    setSelectedItem={setSelectedItem}
+                  />
+                  <Text style={{ color: theme.colors.white, fontSize: 14 }}>
+                    Add Extra Images
+                  </Text>
+                  <ImageInputList
+                    imageUris={imageUris}
+                    onAddImage={(uri) => handleAdd(uri)}
+                    onRemoveImage={(uri) => handleRemove(uri)}
+                  />
+                  <View style={styles.bottom}>
+                    <View style={styles.btn}>
+                      <AppButton
+                        text="Next"
+                        onPress={handleSubmit}
+                        width={theme.buttonSizes.login.width}
+                        height={theme.buttonSizes.login.height}
+                        loader={loading}
+                      />
+                    </View>
                   </View>
                 </View>
-              </View>
-            </>
-          )}
-        </Formik>
-      </View>
+              </>
+            )}
+          </Formik>
+        </View>
+      </ScrollView>
     </View>
   );
 }
