@@ -1,25 +1,67 @@
 import { Formik } from "formik";
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useState, useContext } from "react";
+import { ScrollView, StyleSheet, Text, ToastAndroid, View } from "react-native";
 import * as Yup from "yup";
+import { create } from "apisauce";
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
-import Icon from "../components/Icon";
 import InputField from "../components/InputField";
 import StatusBarView from "../components/StatusBarView";
 import Steps from "../components/Steps";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
+import AuthContext from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(8).label("Password"),
-  cpass: Yup.string().required().min(8).label("Password"),
+  cpass: Yup.string().required().min(8).label("Confirm Password"),
 });
 
+const API = create({ baseURL: "http://192.168.43.227:3030/api" });
+
 export default function PasswordConfirmScreen({ navigation }) {
-  const handleSubmit = (values) => {
-    console.log(values);
+  const [loading, setLoading] = useState(false);
+  const authContext = useContext(AuthContext);
+
+  const handleSubmit = async ({ password, cpass }) => {
+    if (password !== cpass)
+      return ToastAndroid.showWithGravity(
+        "Please Confirm The Password",
+        ToastAndroid.LONG,
+        ToastAndroid.TOP
+      );
+
+    let newUser = authContext.newUserData;
+    newUser["password"] = password;
+    authContext.setNewUserData(newUser);
+
+    const res = await API.post("/register", newUser);
+    if (res.status === 200) {
+      setLoading(true);
+      ToastAndroid.showWithGravity(
+        res.data,
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP
+      );
+      setTimeout(() => {
+        setLoading(false);
+        navigation.navigate(routes.LOGIN);
+      }, 1800);
+    }
+    if (res.status === 400) {
+      setLoading(true);
+      ToastAndroid.showWithGravity(
+        res.data,
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP
+      );
+      setTimeout(() => {
+        setLoading(false);
+        navigation.navigate(routes.LOGIN);
+      }, 1800);
+    }
   };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -41,11 +83,6 @@ export default function PasswordConfirmScreen({ navigation }) {
             touched,
           }) => (
             <View style={styles.content}>
-              <Icon
-                name="arrow-left"
-                size={30}
-                onPress={() => navigation.navigate(routes.REGISTER_2)}
-              />
               <View style={styles.header}>
                 <Text style={{ fontSize: 36, color: theme.colors.white }}>
                   Set Password
@@ -83,6 +120,7 @@ export default function PasswordConfirmScreen({ navigation }) {
                     onPress={handleSubmit}
                     width={theme.buttonSizes.login.width}
                     height={theme.buttonSizes.login.height}
+                    loader={loading}
                   />
                 </View>
               </View>

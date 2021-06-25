@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useState, useContext } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Yup from "yup";
 import AppButton from "../components/AppButton";
@@ -10,6 +10,7 @@ import Steps from "../components/Steps";
 import TextButton from "../components/TextButton";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
+import AuthContext from "../context/AuthContext";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -18,6 +19,18 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function RegisterScreen({ navigation }) {
+  const [loading, setLoading] = useState(false);
+
+  const authContext = useContext(AuthContext);
+
+  const handleFormSubmit = (formValues) => {
+    setLoading(true);
+    authContext.setNewUserData(formValues);
+    setTimeout(() => {
+      setLoading(false);
+      navigation.navigate(routes.REGISTER_2);
+    }, 2000);
+  };
   return (
     <View style={styles.container}>
       <StatusBarView />
@@ -27,7 +40,7 @@ export default function RegisterScreen({ navigation }) {
       >
         <Formik
           initialValues={{ name: "", email: "", phone: "" }}
-          onSubmit={() => navigation.navigate(routes.REGISTER_2)}
+          onSubmit={handleFormSubmit}
           validationSchema={validationSchema}
         >
           {({
@@ -78,6 +91,7 @@ export default function RegisterScreen({ navigation }) {
                     onPress={handleSubmit}
                     width={theme.buttonSizes.login.width}
                     height={theme.buttonSizes.login.height}
+                    loader={loading}
                   />
                 </View>
                 <View style={styles.login}>
