@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   createStackNavigator,
   CardStyleInterpolators,
@@ -9,7 +9,7 @@ import OtpScreen from "../screens/OtpScreen";
 import PasswordConfirmScreen from "../screens/PasswordConfirmScreen";
 import LoginScreen from "../screens/LoginScreen";
 import { Easing } from "react-native";
-
+import { AuthContext } from "../auth/context";
 const config = {
   animation: "spring",
   config: {
@@ -31,43 +31,46 @@ const closeConfig = {
 };
 
 export default function AuthNavigator() {
+  const [newUserData, setNewUserData] = useState();
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator
-      screenOptions={{
-        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        // transitionSpec: {
-        //   open: config,
-        //   close: closeConfig,
-        // },
-      }}
-    >
-      <Stack.Screen
-        name="OnBoarding"
-        component={OnBoardingScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Register"
-        component={RegisterScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="OTP"
-        component={OtpScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="Password"
-        component={PasswordConfirmScreen}
-        options={{ headerShown: false }}
-      />
-    </Stack.Navigator>
+    <AuthContext.Provider value={{ newUserData, setNewUserData }}>
+      <Stack.Navigator
+        screenOptions={{
+          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          // transitionSpec: {
+          //   open: config,
+          //   close: closeConfig,
+          // },
+        }}
+      >
+        <Stack.Screen
+          name="OnBoarding"
+          component={OnBoardingScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={RegisterScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="OTP"
+          component={OtpScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Password"
+          component={PasswordConfirmScreen}
+          options={{ headerShown: false }}
+        />
+      </Stack.Navigator>
+    </AuthContext.Provider>
   );
 }

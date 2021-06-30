@@ -10,7 +10,7 @@ import Steps from "../components/Steps";
 import TextButton from "../components/TextButton";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
-import AuthContext from "../context/AuthContext";
+import { AuthContext } from "../auth/context";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -29,7 +29,7 @@ export default function RegisterScreen({ navigation }) {
     setTimeout(() => {
       setLoading(false);
       navigation.navigate(routes.REGISTER_2);
-    }, 2000);
+    }, 1800);
   };
   return (
     <View style={styles.container}>

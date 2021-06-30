@@ -33,16 +33,13 @@ export default function OnBoardingScreen({ navigation }) {
     },
   ];
 
-  const [state, setState] = useState(false);
-
   const _renderItem = ({ item }) => {
     return (
       <Slide title={item.title} source={item.source} description={item.text} />
     );
   };
   const _onDone = () => {
-    navigation.navigate(routes.REGISTER_1);
-    setState(true);
+    navigation.navigate(routes.LOGIN);
   };
 
   const _renderNextButton = () => {

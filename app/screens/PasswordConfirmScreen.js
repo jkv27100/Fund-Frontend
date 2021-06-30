@@ -2,7 +2,6 @@ import { Formik } from "formik";
 import React, { useState, useContext } from "react";
 import { ScrollView, StyleSheet, Text, ToastAndroid, View } from "react-native";
 import * as Yup from "yup";
-import { create } from "apisauce";
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
 import InputField from "../components/InputField";
@@ -10,14 +9,13 @@ import StatusBarView from "../components/StatusBarView";
 import Steps from "../components/Steps";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
-import AuthContext from "../context/AuthContext";
+import { AuthContext } from "../auth/context";
+import API from "../api/register";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(8).label("Password"),
   cpass: Yup.string().required().min(8).label("Confirm Password"),
 });
-
-const API = create({ baseURL: "http://192.168.43.227:3030/api" });
 
 export default function PasswordConfirmScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
@@ -35,7 +33,8 @@ export default function PasswordConfirmScreen({ navigation }) {
     newUser["password"] = password;
     authContext.setNewUserData(newUser);
 
-    const res = await API.post("/register", newUser);
+    const res = await API.registerNewUser(newUser);
+
     if (res.status === 200) {
       setLoading(true);
       ToastAndroid.showWithGravity(

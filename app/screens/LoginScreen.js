@@ -1,7 +1,10 @@
 import { Formik } from "formik";
-import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import React, { useState, useContext } from "react";
+import { ScrollView, StyleSheet, Text, ToastAndroid, View } from "react-native";
 import * as Yup from "yup";
+import jwtDecode from "jwt-decode";
+import API from "../api/auth";
+import { UserContext } from "../auth/context";
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
 import InputField from "../components/InputField";
@@ -9,6 +12,7 @@ import StatusBarView from "../components/StatusBarView";
 import TextButton from "../components/TextButton";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
+import authStorage from "../auth/authStorage";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -16,8 +20,41 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function LoginScreen({ navigation }) {
+  const [loading, setLoading] = useState(false);
+  const userContext = useContext(UserContext);
+
   const handlePasswordPress = () => {
     console.log("pressed");
+  };
+
+  const handleSubmit = async (credentials) => {
+    setLoading(true);
+
+    const res = await API.authenticate(credentials);
+
+    if (res.status === 400) {
+      ToastAndroid.showWithGravity(
+        res.data.error,
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP
+      );
+      return setLoading(false);
+    }
+
+    if (res.status === 200) {
+      ToastAndroid.showWithGravity(
+        "Login Succesful",
+        ToastAndroid.SHORT,
+        ToastAndroid.TOP
+      );
+      const userData = jwtDecode(res.data.authToken);
+
+      setTimeout(() => {
+        setLoading(false);
+        userContext.setUser(userData);
+        authStorage.storeToken(res.data.authToken);
+      }, 1800);
+    }
   };
 
   return (
@@ -29,7 +66,7 @@ export default function LoginScreen({ navigation }) {
       >
         <Formik
           initialValues={{ email: "", password: "" }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
           {({
@@ -75,6 +112,7 @@ export default function LoginScreen({ navigation }) {
                     onPress={handleSubmit}
                     width={theme.buttonSizes.login.width}
                     height={theme.buttonSizes.login.height}
+                    loader={loading}
                   />
                 </View>
                 <View style={styles.signup}>

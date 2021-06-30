@@ -6,7 +6,7 @@ import StatusBarView from "../components/StatusBarView";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import theme from "../config/theme";
-import AuthContext from "../context/AuthContext";
+import { AuthContext } from "../auth/context";
 import ErrorMessage from "../components/ErrorMessage";
 import Steps from "../components/Steps";
 import routes from "../navigation/routes";
