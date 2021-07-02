@@ -12,6 +12,7 @@ export default function DocumentPicker({ text }) {
   const handlePress = async () => {
     const result = await Document.getDocumentAsync();
     if (result.type === "success") {
+      console.log(result);
       setIsPicked(true);
       setFileName(result.name);
       setSize(result.size);

@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
 export default function NewPostScreen({ navigation }) {
   const [selectedItem, setSelectedItem] = useState("");
   const [imageUris, setImageUris] = useState([]);
-  const [profileImage, setProfileImage] = useState();
+  const [thumbnail, setThumbnail] = useState();
   const [loading, setLoading] = useState(false);
 
   const handleAdd = (uri) => {
@@ -47,7 +47,7 @@ export default function NewPostScreen({ navigation }) {
       <ScrollView style={{ width: "100%" }}>
         <StatusBarView />
         <View style={styles.topSection}>
-          <ImageInput imageUri={profileImage} onChangeImage={setProfileImage} />
+          <ImageInput imageUri={thumbnail} onChangeImage={setThumbnail} />
           <Steps total="2" step="1" />
         </View>
         <View style={styles.inputSection}>

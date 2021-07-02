@@ -1,10 +1,13 @@
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, Image, StyleSheet, TouchableOpacity } from "react-native";
+
 import theme from "../config/theme";
+import Animator from "./Animator";
 
 export default function ImageInput({ imageUri, onChangeImage }) {
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     requestPermission();
   }, []);
@@ -22,10 +25,16 @@ export default function ImageInput({ imageUri, onChangeImage }) {
       const result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         quality: 0.5,
+        allowsEditing: true,
       });
 
       if (!result.cancelled) {
-        onChangeImage(result.uri);
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+
+          onChangeImage(result.uri);
+        }, 1800);
       }
     } catch (error) {
       Alert.alert("Something Went Wrong", error);
@@ -46,6 +55,11 @@ export default function ImageInput({ imageUri, onChangeImage }) {
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       {imageUri ? (
         <Image source={{ uri: imageUri }} style={styles.image} />
+      ) : loading ? (
+        <Animator
+          src={require("../assets/animations/btn-loading.json")}
+          width={25}
+        />
       ) : (
         <MaterialCommunityIcons
           name="camera"

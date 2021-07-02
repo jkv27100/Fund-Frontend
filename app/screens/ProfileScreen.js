@@ -1,17 +1,58 @@
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useState, useEffect } from "react";
+import { StyleSheet, Text, View } from "react-native";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
+import { UserContext } from "../auth/context";
+import ImageInput from "../components/ImageInput";
+import AppButton from "../components/AppButton";
+import imageUpload from "../api/imageUpload";
+import Toast from "../utilities/Toast";
+import imageAPI from "../api/profile";
 
 export default function ProfileScreen() {
+  const { user } = useContext(UserContext);
+  const [profileImg, setProfileImg] = useState();
+  const [loading, setLoading] = useState(false);
+  const [visible, setVisisble] = useState(true);
+
+  const getProfileImage = async () => {
+    const { result } = await imageAPI.getImage(user._id);
+
+    setProfileImg(result);
+  };
+
+  useEffect(() => {
+    getProfileImage();
+  }, []);
+
+  const handleImageUpload = async () => {
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("profile", {
+      name: new Date() + "_profile",
+      uri: profileImg,
+      type: "image/jpg",
+    });
+    formData.append("user_id", user._id);
+
+    try {
+      const result = await imageUpload.upload(formData);
+      if (result.ok) {
+        setTimeout(() => {
+          Toast.showToast(result.data.message);
+          setLoading(false);
+        }, 1400);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <StatusBarView />
       <View style={styles.topSection}>
-        <Image
-          source={require("../assets/images/pic3.jpg")}
-          style={styles.img}
-        />
+        <ImageInput imageUri={profileImg} onChangeImage={setProfileImg} />
         <Text
           style={{
             color: theme.colors.white,
@@ -20,8 +61,18 @@ export default function ProfileScreen() {
             fontWeight: "bold",
           }}
         >
-          {"Itachi Uchiha"}
+          {user.name}
         </Text>
+        {visible && (
+          <AppButton
+            text="Upload"
+            width={70}
+            height={30}
+            fontSize={13}
+            loader={loading}
+            onPress={handleImageUpload}
+          />
+        )}
       </View>
       <View style={styles.details}>
         <View style={styles.content}>
@@ -41,7 +92,7 @@ export default function ProfileScreen() {
                 paddingTop: 10,
               }}
             >
-              {"8"}
+              {user.post_no}
             </Text>
           </View>
           <View style={{ alignItems: "center" }}>
@@ -55,7 +106,7 @@ export default function ProfileScreen() {
                 paddingTop: 10,
               }}
             >
-              {"$" + "675.89"}
+              {`$ ${user.donated}`}
             </Text>
           </View>
           <View style={{ alignItems: "center" }}>
@@ -69,7 +120,7 @@ export default function ProfileScreen() {
                 paddingTop: 10,
               }}
             >
-              {"$" + "10.78"}
+              {`$ ${user.balance}`}
             </Text>
           </View>
         </View>

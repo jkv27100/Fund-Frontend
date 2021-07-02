@@ -8,22 +8,20 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import { UserContext } from "./app/auth/context";
 import AppLoading from "expo-app-loading";
 import authStorage from "./app/auth/authStorage";
-import jwtDecode from "jwt-decode";
 
 export default function App() {
   const [user, setUser] = useState();
   const [isReady, setIsReady] = useState(false);
 
-  const restoreToken = async () => {
-    const token = await authStorage.getToken();
-    if (!token) return;
-    setUser(jwtDecode(token));
+  const restoreUser = async () => {
+    const userData = await authStorage.getUser();
+    if (userData) setUser(userData);
   };
 
   if (!isReady)
     return (
       <AppLoading
-        startAsync={restoreToken}
+        startAsync={restoreUser}
         onFinish={() => setIsReady(true)}
         onError={console.warn}
       />

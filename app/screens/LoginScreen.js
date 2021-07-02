@@ -1,10 +1,10 @@
 import { Formik } from "formik";
-import React, { useState, useContext } from "react";
-import { ScrollView, StyleSheet, Text, ToastAndroid, View } from "react-native";
+import React, { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Yup from "yup";
-import jwtDecode from "jwt-decode";
+
 import API from "../api/auth";
-import { UserContext } from "../auth/context";
+import useAuth from "../auth/useAuth";
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
 import InputField from "../components/InputField";
@@ -12,7 +12,7 @@ import StatusBarView from "../components/StatusBarView";
 import TextButton from "../components/TextButton";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
-import authStorage from "../auth/authStorage";
+import Toast from "../utilities/Toast";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -21,7 +21,7 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
-  const userContext = useContext(UserContext);
+  const auth = useAuth();
 
   const handlePasswordPress = () => {
     console.log("pressed");
@@ -33,26 +33,15 @@ export default function LoginScreen({ navigation }) {
     const res = await API.authenticate(credentials);
 
     if (res.status === 400) {
-      ToastAndroid.showWithGravity(
-        res.data.error,
-        ToastAndroid.SHORT,
-        ToastAndroid.TOP
-      );
+      Toast.showToast(res.data.error);
       return setLoading(false);
     }
 
     if (res.status === 200) {
-      ToastAndroid.showWithGravity(
-        "Login Succesful",
-        ToastAndroid.SHORT,
-        ToastAndroid.TOP
-      );
-      const userData = jwtDecode(res.data.authToken);
-
+      Toast.showToast("Login Successfull");
       setTimeout(() => {
         setLoading(false);
-        userContext.setUser(userData);
-        authStorage.storeToken(res.data.authToken);
+        auth.logIn(res.data.authToken);
       }, 1800);
     }
   };

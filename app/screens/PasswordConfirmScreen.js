@@ -2,6 +2,7 @@ import { Formik } from "formik";
 import React, { useState, useContext } from "react";
 import { ScrollView, StyleSheet, Text, ToastAndroid, View } from "react-native";
 import * as Yup from "yup";
+
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
 import InputField from "../components/InputField";
@@ -11,6 +12,7 @@ import theme from "../config/theme";
 import routes from "../navigation/routes";
 import { AuthContext } from "../auth/context";
 import API from "../api/register";
+import Toast from "../utilities/Toast";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string().required().min(8).label("Password"),
@@ -23,11 +25,7 @@ export default function PasswordConfirmScreen({ navigation }) {
 
   const handleSubmit = async ({ password, cpass }) => {
     if (password !== cpass)
-      return ToastAndroid.showWithGravity(
-        "Please Confirm The Password",
-        ToastAndroid.LONG,
-        ToastAndroid.TOP
-      );
+      return Toast.showToast("Please Confirm The Password");
 
     let newUser = authContext.newUserData;
     newUser["password"] = password;
@@ -37,11 +35,7 @@ export default function PasswordConfirmScreen({ navigation }) {
 
     if (res.status === 200) {
       setLoading(true);
-      ToastAndroid.showWithGravity(
-        res.data,
-        ToastAndroid.SHORT,
-        ToastAndroid.TOP
-      );
+      Toast.showToast(res.data);
       setTimeout(() => {
         setLoading(false);
         navigation.navigate(routes.LOGIN);
@@ -49,11 +43,7 @@ export default function PasswordConfirmScreen({ navigation }) {
     }
     if (res.status === 400) {
       setLoading(true);
-      ToastAndroid.showWithGravity(
-        res.data,
-        ToastAndroid.SHORT,
-        ToastAndroid.TOP
-      );
+      Toast.showToast(res.data);
       setTimeout(() => {
         setLoading(false);
         navigation.navigate(routes.LOGIN);
