@@ -8,6 +8,9 @@ import Animator from "./Animator";
 
 export default function ImageInput({ imageUri, onChangeImage }) {
   const [loading, setLoading] = useState(false);
+  const base64regex =
+    /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+
   useEffect(() => {
     requestPermission();
   }, []);
@@ -27,12 +30,10 @@ export default function ImageInput({ imageUri, onChangeImage }) {
         quality: 0.5,
         allowsEditing: true,
       });
-
       if (!result.cancelled) {
         setLoading(true);
         setTimeout(() => {
           setLoading(false);
-
           onChangeImage(result.uri);
         }, 1800);
       }
@@ -54,7 +55,14 @@ export default function ImageInput({ imageUri, onChangeImage }) {
   return (
     <TouchableOpacity onPress={handlePress} style={styles.container}>
       {imageUri ? (
-        <Image source={{ uri: imageUri }} style={styles.image} />
+        base64regex.test(imageUri) ? (
+          <Image
+            source={{ uri: `data:image/jpg;base64,${imageUri}` }}
+            style={styles.image}
+          />
+        ) : (
+          <Image source={{ uri: imageUri }} style={styles.image} />
+        )
       ) : loading ? (
         <Animator
           src={require("../assets/animations/btn-loading.json")}
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
   image: {
     width: 125,
     height: 125,
-
     borderRadius: 25,
+    resizeMode: "contain",
   },
 });

@@ -8,6 +8,7 @@ import AppButton from "../components/AppButton";
 import imageUpload from "../api/imageUpload";
 import Toast from "../utilities/Toast";
 import imageAPI from "../api/profile";
+import TextButton from "../components/TextButton";
 
 export default function ProfileScreen() {
   const { user } = useContext(UserContext);
@@ -17,7 +18,6 @@ export default function ProfileScreen() {
 
   const getProfileImage = async () => {
     const { result } = await imageAPI.getImage(user._id);
-
     setProfileImg(result);
   };
 
@@ -65,8 +65,8 @@ export default function ProfileScreen() {
         </Text>
         {visible && (
           <AppButton
-            text="Upload"
-            width={70}
+            text="Change Profile"
+            width={140}
             height={30}
             fontSize={13}
             loader={loading}
@@ -125,6 +125,9 @@ export default function ProfileScreen() {
           </View>
         </View>
       </View>
+      <View style={styles.userDetails}>
+        <TextButton text={"Log Out"} />
+      </View>
     </View>
   );
 }
@@ -161,5 +164,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "90%",
     marginTop: 30,
+  },
+  userDetails: {
+    width: "100%",
+    marginTop: 100,
+    alignItems: "center",
   },
 });
