@@ -10,7 +10,9 @@ export default function DocumentPicker({ text }) {
   const [fileName, setFileName] = useState("");
   const [size, setSize] = useState();
   const handlePress = async () => {
-    const result = await Document.getDocumentAsync();
+    const result = await Document.getDocumentAsync({
+      copyToCacheDirectory: false,
+    });
     if (result.type === "success") {
       console.log(result);
       setIsPicked(true);

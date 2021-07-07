@@ -6,6 +6,7 @@ import theme from "../config/theme";
 import BookmarkScreen from "../screens/BookmarkScreen";
 import TransactionScreen from "../screens/TransactionScreen";
 import PosterRoleNavigator from "./PosterRoleNavigator";
+import ViewPostScreen from "../screens/ViewPostScreen";
 
 const Drawer = createDrawerNavigator();
 export default function DrawerNavigator() {
@@ -45,6 +46,15 @@ export default function DrawerNavigator() {
         options={{
           drawerIcon: ({ size, color }) => (
             <Ionicons color={color} name="ios-albums" size={size} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="View Posts"
+        component={ViewPostScreen}
+        options={{
+          drawerIcon: ({ size, color }) => (
+            <Ionicons color={color} name="newspaper" size={size} />
           ),
         }}
       />

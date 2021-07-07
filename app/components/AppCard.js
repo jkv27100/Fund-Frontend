@@ -7,6 +7,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
@@ -28,6 +29,7 @@ export default function AppCard({
   tag,
   location,
   isBookMarked,
+  isApproved,
 }) {
   const [collapsed, setCollapsed] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
@@ -77,6 +79,27 @@ export default function AppCard({
           <View style={styles.progress}>
             <ProgressBar percentage={percentage} />
           </View>
+          {isApproved ? (
+            <View style={{ width: "100%", padding: 5 }}>
+              <View style={{ width: "98%", alignItems: "flex-end" }}>
+                <Ionicons
+                  name="checkmark-circle"
+                  size={25}
+                  color={theme.colors.success}
+                />
+              </View>
+            </View>
+          ) : (
+            <View style={{ width: "100%", padding: 5 }}>
+              <View style={{ width: "98%", alignItems: "flex-end" }}>
+                <MaterialIcons
+                  name="report-problem"
+                  size={25}
+                  color={theme.colors.danger}
+                />
+              </View>
+            </View>
+          )}
           <Collapsible collapsed={collapsed}>
             <View style={styles.expanded}>
               <View style={styles.details}>

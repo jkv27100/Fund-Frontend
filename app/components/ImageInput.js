@@ -98,6 +98,6 @@ const styles = StyleSheet.create({
     width: 125,
     height: 125,
     borderRadius: 25,
-    resizeMode: "contain",
+    resizeMode: "stretch",
   },
 });

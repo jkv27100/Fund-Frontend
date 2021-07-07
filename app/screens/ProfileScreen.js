@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 import { UserContext } from "../auth/context";
@@ -9,12 +9,15 @@ import imageUpload from "../api/imageUpload";
 import Toast from "../utilities/Toast";
 import imageAPI from "../api/profile";
 import TextButton from "../components/TextButton";
+import ProfileInfo from "../components/ProfileInfo";
+import useAuth from "../auth/useAuth";
 
 export default function ProfileScreen() {
   const { user } = useContext(UserContext);
   const [profileImg, setProfileImg] = useState();
   const [loading, setLoading] = useState(false);
   const [visible, setVisisble] = useState(true);
+  const auth = useAuth();
 
   const getProfileImage = async () => {
     const { result } = await imageAPI.getImage(user._id);
@@ -51,6 +54,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <StatusBarView />
+
       <View style={styles.topSection}>
         <ImageInput imageUri={profileImg} onChangeImage={setProfileImg} />
         <Text
@@ -125,9 +129,16 @@ export default function ProfileScreen() {
           </View>
         </View>
       </View>
-      <View style={styles.userDetails}>
-        <TextButton text={"Log Out"} />
-      </View>
+      <ScrollView
+        style={{ width: "100%" }}
+        contentContainerStyle={{ alignItems: "center" }}
+      >
+        <View style={styles.userDetails}>
+          <ProfileInfo text={user.email} name="envelope" />
+          <ProfileInfo text={user.phone} name="phone" />
+          <TextButton text={"Log Out"} onPress={() => auth.logOut()} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -166,8 +177,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   userDetails: {
-    width: "100%",
+    width: "80%",
     marginTop: 100,
     alignItems: "center",
+    paddingBottom: 20,
   },
 });
