@@ -22,8 +22,10 @@ import routes from "../navigation/routes";
 const minHeaderHeight = 70;
 const maxHeaderHeight = 250;
 
-export default function PostDetailsScreen({ navigation }) {
+export default function PostDetailsScreen({ navigation, route }) {
   const scrollPosition = useRef(new Animated.Value(0)).current;
+  const postData = route.params;
+
   const imageUris = [
     require("../assets/images/pic.jpg"),
     require("../assets/images/pic3.jpg"),
@@ -81,7 +83,7 @@ export default function PostDetailsScreen({ navigation }) {
         }}
       >
         <Animated.Image
-          source={require("../assets/images/pic.jpg")}
+          source={{ uri: `data:image/jpg;base64,${postData.images[0]}` }}
           style={styles.img}
         />
       </Animated.View>
@@ -99,10 +101,10 @@ export default function PostDetailsScreen({ navigation }) {
           <View style={styles.topSection}>
             <View style={styles.titleContainer}>
               <Text style={styles.title} numberOfLines={1}>
-                {"Title"}
+                {postData.title}
               </Text>
               <Text style={styles.subTitle} numberOfLines={1}>
-                {"subTitle"}
+                {postData.subTitle}
               </Text>
             </View>
             <View style={styles.iconContainer}>
@@ -112,7 +114,11 @@ export default function PostDetailsScreen({ navigation }) {
             </View>
           </View>
           <View style={styles.progress}>
-            <ProgressBar percentage={"75"} />
+            <ProgressBar
+              percentage={Math.floor(
+                (postData.amountRaised / postData.goalAmount) * 100
+              )}
+            />
           </View>
           <View style={styles.details}>
             <View style={styles.section1}>
@@ -124,10 +130,10 @@ export default function PostDetailsScreen({ navigation }) {
                     fontWeight: "bold",
                   }}
                 >
-                  US $ {"10,400"}
+                  US $ {postData.amountRaised}
                 </Text>
                 <Text style={{ color: theme.colors.white, fontSize: 15 }}>
-                  pledged of US $ {"11,000"} goal
+                  pledged of US $ {postData.goalAmount} goal
                 </Text>
               </View>
               <AppButton
@@ -137,9 +143,9 @@ export default function PostDetailsScreen({ navigation }) {
                 fontSize={14}
               />
               <View style={styles.tags}>
-                <Tag tag={"Tag"} />
+                <Tag tag={postData.tag} />
                 <View style={{ marginLeft: 20 }}>
-                  <LocationTag location={"Location"} />
+                  <LocationTag location={postData.location} />
                 </View>
               </View>
             </View>
@@ -152,7 +158,7 @@ export default function PostDetailsScreen({ navigation }) {
                     fontWeight: "bold",
                   }}
                 >
-                  {"64"}
+                  {postData.backers}
                 </Text>
                 <Text style={{ color: theme.colors.white, fontSize: 15 }}>
                   backers
@@ -166,7 +172,7 @@ export default function PostDetailsScreen({ navigation }) {
                     fontWeight: "bold",
                   }}
                 >
-                  {"3"}
+                  {postData.goalDays}
                 </Text>
                 <Text style={{ color: theme.colors.white, fontSize: 15 }}>
                   days to go
@@ -175,7 +181,7 @@ export default function PostDetailsScreen({ navigation }) {
             </View>
           </View>
           <View style={styles.carousel}>
-            <Carousel imageUris={imageUris} />
+            <Carousel imageUris={postData.images} />
           </View>
         </View>
 
@@ -204,9 +210,7 @@ export default function PostDetailsScreen({ navigation }) {
               marginTop: 20,
             }}
           >
-            {
-              "Labore magna tempor laboris veniam. Commodo dolore eu veniam aliquip amet occaecat. Esse est laborum deserunt esse velit nostrud fugiat est duis magna nisi officia. Consequat eiusmod non in tempor et. Elit deserunt aute Lorem nostrud id cupidatat excepteur ullamco do occaecat. Proident laborum cupidatat commodo reprehenderit mollit elit deserunt ut officia cillum elit eu est. Ex elit aliquip ullamco ad adipisicing reprehenderit nisi pariatur sunt."
-            }
+            {postData.description}
           </Text>
         </View>
         <View style={styles.commentSection}>

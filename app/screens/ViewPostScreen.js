@@ -1,42 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
+import PostApi from "../api/getPostData";
 import AppCard from "../components/AppCard";
 import Header from "../components/Header";
 import Loader from "../components/Loader";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
+import { UserContext } from "../auth/context";
+import routes from "../navigation/routes";
 
 export default function ViewPostScreen({ navigation }) {
   const [isReady, setIsReady] = useState(false);
   const [visible, setVisible] = useState(true);
-  const details = [
-    {
-      id: "1",
-      title: "New app for gaming",
-      subTitle: "Install and enjoy the fast",
-      image: require("../assets/images/pic.jpg"),
-      percetage: "37",
-      pledged: "$8767",
-      days: "5",
-      likes: "4561",
-      tag: "Technology",
-      location: "Manglore,Karnataka,India",
-      isApproved: true,
-    },
-    {
-      id: "2",
-      title: "New app for gaming",
-      subTitle: "Install and enjoy the fast",
-      image: require("../assets/images/pic.jpg"),
-      percetage: "78",
-      pledged: "$8767",
-      days: "5",
-      likes: "4561",
-      tag: "Food",
-      location: "Kannur,Kerala",
-      isApproved: false,
-    },
-  ];
+  const [details, setDetails] = useState();
+  const { user } = useContext(UserContext);
+
+  const getPosts = async () => {
+    const { data } = await PostApi.getAllPostById(user._id);
+    setDetails(data.postData);
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   setTimeout(() => {
     setIsReady(true);
@@ -55,21 +40,24 @@ export default function ViewPostScreen({ navigation }) {
           <FlatList
             data={details}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(data) => data.id.toString()}
+            keyExtractor={(data) => data._id.toString()}
             renderItem={({ item }) => (
               <View style={styles.list}>
                 <AppCard
                   title={item.title}
                   subTitle={item.subTitle}
-                  image={item.image}
-                  percentage={item.percetage}
-                  pledged={item.pledged}
-                  days={item.days}
-                  likes={item.likes}
+                  images={item.images}
+                  percentage={Math.floor(
+                    (item.amountRaised / item.goalAmount) * 100
+                  )}
+                  pledged={item.goalAmount}
+                  days={item.goalDays}
+                  likes={item.upvotes}
                   button="back project"
                   tag={item.tag}
                   location={item.location}
                   isApproved={item.isApproved}
+                  onPress={() => navigation.navigate(routes.POST_DETAILS, item)}
                 />
               </View>
             )}
@@ -93,7 +81,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     alignItems: "center",
-    justifyContent: "center",
     paddingBottom: 200,
   },
   list: {

@@ -20,7 +20,7 @@ import Tag from "./Tag";
 export default function AppCard({
   title,
   subTitle,
-  image,
+  images = [],
   percentage,
   pledged,
   days,
@@ -30,6 +30,7 @@ export default function AppCard({
   location,
   isBookMarked,
   isApproved,
+  onPress,
 }) {
   const [collapsed, setCollapsed] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
@@ -37,10 +38,14 @@ export default function AppCard({
   const [downVoted, setDownVoted] = useState(false);
 
   const navigation = useNavigation();
+
   return (
     <TouchableWithoutFeedback onPress={() => setCollapsed(!collapsed)}>
       <View style={styles.cardContainer}>
-        <Image source={image} style={styles.img} />
+        <Image
+          source={{ uri: `data:image/jpg;base64,${images[0]}` }}
+          style={styles.img}
+        />
         <View style={styles.cardDetails}>
           <View style={styles.topSection}>
             <View style={styles.titleContainer}>
@@ -129,7 +134,7 @@ export default function AppCard({
                   width={theme.buttonSizes.card.width}
                   height={theme.buttonSizes.card.height}
                   fontSize={12}
-                  onPress={() => navigation.navigate(routes.POST_DETAILS)}
+                  onPress={onPress}
                 />
               </View>
             </View>

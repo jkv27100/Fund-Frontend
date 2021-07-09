@@ -16,7 +16,7 @@ export default function ProfileScreen() {
   const { user } = useContext(UserContext);
   const [profileImg, setProfileImg] = useState();
   const [loading, setLoading] = useState(false);
-  const [visible, setVisisble] = useState(true);
+
   const auth = useAuth();
 
   const getProfileImage = async () => {
@@ -67,16 +67,15 @@ export default function ProfileScreen() {
         >
           {user.name}
         </Text>
-        {visible && (
-          <AppButton
-            text="Change Profile"
-            width={140}
-            height={30}
-            fontSize={13}
-            loader={loading}
-            onPress={handleImageUpload}
-          />
-        )}
+
+        <AppButton
+          text="Change Profile"
+          width={140}
+          height={30}
+          fontSize={13}
+          loader={loading}
+          onPress={handleImageUpload}
+        />
       </View>
       <View style={styles.details}>
         <View style={styles.content}>

@@ -4,7 +4,10 @@ import { Image, StyleSheet, Text, View } from "react-native";
 export default function ImageContainer({ uri }) {
   return (
     <View style={styles.container}>
-      <Image source={uri} style={styles.img} />
+      <Image
+        source={{ uri: `data:image/jpg;base64,${uri}` }}
+        style={styles.img}
+      />
     </View>
   );
 }
