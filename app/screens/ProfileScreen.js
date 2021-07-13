@@ -61,21 +61,22 @@ export default function ProfileScreen() {
           style={{
             color: theme.colors.white,
             fontSize: 18,
-            padding: 10,
+            padding: 5,
             fontWeight: "bold",
           }}
         >
           {user.name}
         </Text>
-
-        <AppButton
-          text="Change Profile"
-          width={140}
-          height={30}
-          fontSize={13}
-          loader={loading}
-          onPress={handleImageUpload}
-        />
+        <View style={{ marginBottom: 50 }}>
+          <AppButton
+            text="Change Profile"
+            width={140}
+            height={30}
+            fontSize={13}
+            loader={loading}
+            onPress={handleImageUpload}
+          />
+        </View>
       </View>
       <View style={styles.details}>
         <View style={styles.content}>

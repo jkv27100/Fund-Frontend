@@ -1,61 +1,23 @@
-import React from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
 import AppCard from "../components/AppCard";
 import Header from "../components/Header";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
+import PostApi from "../api/getPostData";
+import routes from "../navigation/routes";
 
 export default function PostListScreen({ navigation }) {
-  const details = [
-    {
-      id: "1",
-      title: "New app for gaming",
-      subTitle: "Install and enjoy the fast",
-      image: require("../assets/images/pic.jpg"),
-      percetage: "37",
-      pledged: "$8767",
-      days: "5",
-      likes: "4561",
-      tag: "Technology",
-      location: "Manglore,Karnataka,India",
-    },
-    {
-      id: "2",
-      title: "New app for gaming",
-      subTitle: "Install and enjoy the fast",
-      image: require("../assets/images/pic.jpg"),
-      percetage: "78",
-      pledged: "$8767",
-      days: "5",
-      likes: "4561",
-      tag: "Food",
-      location: "Kannur,Kerala",
-    },
-    {
-      id: "3",
-      title: "New app for gaming",
-      subTitle: "Install and enjoy the fast",
-      image: require("../assets/images/pic.jpg"),
-      percetage: "67",
-      pledged: "$8767",
-      days: "5",
-      likes: "4561",
-      tag: "App",
-      location: "Taliparamba,Kerala",
-    },
-    {
-      id: "4",
-      title: "New app for gaming",
-      subTitle: "Install and enjoy the fast",
-      image: require("../assets/images/pic.jpg"),
-      percetage: "67",
-      pledged: "$8767",
-      days: "5",
-      likes: "4561",
-      tag: "App",
-      location: "Taliparamba,Kerala",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  const getPosts = async () => {
+    const { data } = await PostApi.getApprovedPosts();
+    setPosts(data.posts);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -65,22 +27,27 @@ export default function PostListScreen({ navigation }) {
       </View>
       <View style={{ width: "90%" }}>
         <FlatList
-          data={details}
+          data={posts}
           showsVerticalScrollIndicator={false}
-          keyExtractor={(data) => data.id.toString()}
+          keyExtractor={(data) => data._id.toString()}
           renderItem={({ item }) => (
             <View style={styles.list}>
               <AppCard
                 title={item.title}
                 subTitle={item.subTitle}
-                image={item.image}
-                percentage={item.percetage}
-                pledged={item.pledged}
-                days={item.days}
-                likes={item.likes}
+                images={item.images}
+                percentage={Math.floor(
+                  (item.amountRaised / item.goalAmount) * 100
+                )}
+                pledged={item.amountRaised}
+                days={item.goalDays}
+                likes={item.upvotes}
                 button="back project"
                 tag={item.tag}
                 location={item.location}
+                isApproved={item.isApproved}
+                postId={item._id}
+                onPress={() => navigation.navigate(routes.POST_DETAILS, item)}
               />
             </View>
           )}

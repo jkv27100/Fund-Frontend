@@ -1,30 +1,52 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View, ToastAndroid } from "react-native";
+import React, { useContext, useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
 import AppButton from "../components/AppButton";
 import ErrorMessage from "../components/ErrorMessage";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
+import commentApi from "../api/comment";
+import { UserContext } from "../auth/context";
+import Toast from "../utilities/Toast";
 
-export default function CommentScreen() {
+export default function CommentScreen({ route, navigation }) {
   const [state, setState] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
+  const { postId } = route.params;
+  const { user } = useContext(UserContext);
 
-  const handlePress = () => {
+  const currentDate = new Date();
+  const commentObj = {
+    user_id: user._id,
+    comment: state,
+    postId,
+    date:
+      currentDate.getDate() +
+      "/" +
+      (currentDate.getMonth() + 1) +
+      "/" +
+      currentDate.getFullYear() +
+      "  " +
+      currentDate.getHours() +
+      ":" +
+      currentDate.getMinutes() +
+      ":" +
+      currentDate.getSeconds(),
+    userName: user.name,
+  };
+  const handlePress = async () => {
     if (state) {
       setIsLoading(true);
       setError(false);
+      const data = await commentApi.addComment(commentObj);
+
       setTimeout(() => {
         setIsLoading(false);
-        showToast();
-      }, 2000);
+        Toast.showToast(data.message);
+      }, 1400);
     } else {
       setError(true);
     }
-  };
-
-  const showToast = () => {
-    ToastAndroid.show("Comment Added succesfully", ToastAndroid.SHORT);
   };
 
   return (

@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -10,12 +9,15 @@ import {
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import Collapsible from "react-native-collapsible";
 import theme from "../config/theme";
-import routes from "../navigation/routes";
 import AppButton from "./AppButton";
 import Icon from "./Icon";
 import LocationTag from "./LocationTag";
 import ProgressBar from "./ProgressBar";
 import Tag from "./Tag";
+import postInteractionApi from "../api/postInteraction";
+import { UserContext } from "../auth/context";
+import Toast from "../utilities/Toast";
+import authStorage from "../auth/authStorage";
 
 export default function AppCard({
   title,
@@ -31,13 +33,35 @@ export default function AppCard({
   isBookMarked,
   isApproved,
   onPress,
+  postId,
 }) {
   const [collapsed, setCollapsed] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
-  const [downVoted, setDownVoted] = useState(false);
+  const { user, setUser } = useContext(UserContext);
 
-  const navigation = useNavigation();
+  const handleBookmark = async () => {
+    if (!bookmarked) {
+      const response = await postInteractionApi.addToBookmark(user._id, postId);
+      let newUser = user;
+      newUser.bookmarked.push(response.newPost);
+      setUser(newUser);
+      authStorage.storeToken(newUser);
+      Toast.showToast(response.message);
+      setBookmarked(true);
+    }
+    if (isBookMarked) {
+      const response = await postInteractionApi.removeBookmark(
+        user._id,
+        postId
+      );
+      let newUser = response.newUser;
+      setUser(newUser);
+      authStorage.storeToken(newUser);
+      Toast.showToast(response.message);
+      setBookmarked(false);
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => setCollapsed(!collapsed)}>
@@ -60,24 +84,18 @@ export default function AppCard({
               <Icon
                 name="bookmark"
                 size={22}
-                onPress={() => setBookmarked(!isBookMarked)}
+                onPress={handleBookmark}
                 color={
-                  isBookMarked || bookmarked
+                  bookmarked || isBookMarked
                     ? theme.colors.yellow
                     : theme.colors.white
                 }
               />
               <Icon
-                name="thumbs-up"
+                name="heart"
                 size={22}
                 onPress={() => setUpvoted(!upvoted)}
                 color={upvoted ? theme.colors.yellow : theme.colors.white}
-              />
-              <Icon
-                name="thumbs-down"
-                size={22}
-                onPress={() => setDownVoted(!downVoted)}
-                color={downVoted ? theme.colors.yellow : theme.colors.white}
               />
             </View>
           </View>
@@ -85,7 +103,7 @@ export default function AppCard({
             <ProgressBar percentage={percentage} />
           </View>
           {isApproved ? (
-            <View style={{ width: "100%", padding: 5 }}>
+            <View style={{ width: "100%", paddingHorizontal: 5 }}>
               <View style={{ width: "98%", alignItems: "flex-end" }}>
                 <Ionicons
                   name="checkmark-circle"
@@ -95,7 +113,7 @@ export default function AppCard({
               </View>
             </View>
           ) : (
-            <View style={{ width: "100%", padding: 5 }}>
+            <View style={{ width: "100%", paddingHorizontal: 5 }}>
               <View style={{ width: "98%", alignItems: "flex-end" }}>
                 <MaterialIcons
                   name="report-problem"
@@ -173,11 +191,12 @@ const styles = StyleSheet.create({
   titleContainer: {
     width: "60%",
     marginLeft: 10,
+    marginTop: 5,
   },
   iconContainer: {
     flexDirection: "row",
     width: "30%",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginRight: 10,
   },
   title: {

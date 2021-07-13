@@ -9,18 +9,17 @@ export default function Comments({ image, name, date, comment }) {
       <View
         style={{
           width: "100%",
-          height: "30%",
-          borderRadius: 18,
-          borderWidth: 1,
-          borderColor: theme.colors.white,
         }}
       >
-        <Avatar
-          image={require("../assets/images/pic3.jpg")}
-          title={name}
-          subTitle={date}
-        />
-        <Text style={{ color: theme.colors.white, padding: 15 }}>
+        <Avatar image={image} title={name} subTitle={date} />
+
+        <Text
+          numberOfLines={1}
+          style={{
+            color: theme.colors.white,
+            paddingHorizontal: 10,
+          }}
+        >
           {comment}
         </Text>
       </View>
@@ -30,8 +29,11 @@ export default function Comments({ image, name, date, comment }) {
 
 const styles = StyleSheet.create({
   container: {
-    width: "90%",
-    height: "100%",
+    width: "98%",
+    height: "60%",
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: theme.colors.white,
     marginRight: 25,
   },
 });

@@ -26,13 +26,6 @@ export default function PostDetailsScreen({ navigation, route }) {
   const scrollPosition = useRef(new Animated.Value(0)).current;
   const postData = route.params;
 
-  const imageUris = [
-    require("../assets/images/pic.jpg"),
-    require("../assets/images/pic3.jpg"),
-    require("../assets/images/pic4.jpg"),
-    require("../assets/images/gh.jpg"),
-  ];
-
   const headerHeight = scrollPosition.interpolate({
     inputRange: [0, 500],
     outputRange: [maxHeaderHeight, minHeaderHeight],
@@ -43,36 +36,7 @@ export default function PostDetailsScreen({ navigation, route }) {
     outputRange: [1, 0.5, 0.3],
     extrapolate: "clamp",
   });
-  const comments = [
-    {
-      id: "1",
-      name: "Jaggu",
-      date: "17/4/12",
-      comment:
-        "Est duis laboris occaecat sunt. Pariatur quis in cupidatat do aliqua",
-    },
-    {
-      id: "2",
-      name: "Jaggu",
-      date: "17/4/12",
-      comment:
-        "Est duis laboris occaecat sunt. Pariatur quis in cupidatat do aliqua",
-    },
-    {
-      id: "3",
-      name: "Jaggu",
-      date: "17/4/12",
-      comment:
-        "Est duis laboris occaecat sunt. Pariatur quis in cupidatat do aliqua",
-    },
-    {
-      id: "4",
-      name: "Jaggu",
-      date: "17/4/12",
-      comment:
-        "Est duis laboris occaecat sunt. Pariatur quis in cupidatat do aliqua",
-    },
-  ];
+
   return (
     <View style={styles.container}>
       <Animated.View
@@ -188,7 +152,9 @@ export default function PostDetailsScreen({ navigation, route }) {
         <View style={{ width: "100%", alignItems: "flex-end" }}>
           <RoundButton
             icon={"folder-plus"}
-            onPress={() => navigation.navigate(routes.COMMENT)}
+            onPress={() =>
+              navigation.navigate(routes.COMMENT, { postId: postData._id })
+            }
           />
         </View>
 
@@ -224,7 +190,7 @@ export default function PostDetailsScreen({ navigation, route }) {
           >
             Comments
           </Text>
-          <CommentCarousel comments={comments} />
+          <CommentCarousel comments={postData.comments} />
         </View>
       </Animated.ScrollView>
     </View>

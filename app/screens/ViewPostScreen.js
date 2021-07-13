@@ -13,6 +13,7 @@ export default function ViewPostScreen({ navigation }) {
   const [isReady, setIsReady] = useState(false);
   const [visible, setVisible] = useState(true);
   const [details, setDetails] = useState();
+  const [refreshing, setFreshing] = useState(false);
   const { user } = useContext(UserContext);
 
   const getPosts = async () => {
@@ -28,11 +29,15 @@ export default function ViewPostScreen({ navigation }) {
     setVisible(false);
   }, 2000);
 
+  const handleRefresh = () => {
+    getPosts();
+  };
+
   return (
     <View style={styles.container}>
       <StatusBarView />
       <View style={{ width: "100%", padding: 20 }}>
-        <Header onPress={() => navigation.openDrawer()} title="Posts" />
+        <Header onPress={() => navigation.openDrawer()} title="Your Posts" />
       </View>
 
       {isReady ? (
@@ -41,6 +46,8 @@ export default function ViewPostScreen({ navigation }) {
             data={details}
             showsVerticalScrollIndicator={false}
             keyExtractor={(data) => data._id.toString()}
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
             renderItem={({ item }) => (
               <View style={styles.list}>
                 <AppCard

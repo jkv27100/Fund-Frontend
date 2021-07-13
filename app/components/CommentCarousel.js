@@ -9,11 +9,12 @@ export default function CommentCarousel({ comments = [] }) {
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         <View style={styles.container}>
           {comments.map((item) => (
-            <View key={item.id}>
+            <View key={item._id}>
               <Comments
-                name={item.name}
+                name={item.userName}
                 date={item.date}
                 comment={item.comment}
+                image={item.avatar}
               />
             </View>
           ))}

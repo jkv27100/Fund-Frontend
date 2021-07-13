@@ -5,7 +5,10 @@ import theme from "../config/theme";
 export default function Avatar({ image, title, subTitle }) {
   return (
     <View style={styles.avatarContainer}>
-      <Image style={styles.image} source={image} />
+      <Image
+        style={styles.image}
+        source={{ uri: `data:image/jpg;base64,${image}` }}
+      />
 
       <View style={styles.details}>
         <Text style={styles.title} numberOfLines={1}>

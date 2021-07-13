@@ -48,7 +48,8 @@ export default function NewPostScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {true ? (
+      {console.log(user.isPoster)}
+      {user.isPoster ? (
         <ScrollView style={{ width: "100%" }}>
           <StatusBarView />
           <View style={styles.topSection}>
@@ -127,7 +128,10 @@ export default function NewPostScreen({ navigation }) {
           </View>
         </ScrollView>
       ) : (
-        <NotAPosterScreen />
+        <NotAPosterScreen
+          text1="You Are Not A Poster !"
+          text2="Apply for poster role or Wait for the verification..."
+        />
       )}
     </View>
   );
