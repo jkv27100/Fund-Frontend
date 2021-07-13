@@ -4,7 +4,7 @@ const KEY = "authToken";
 
 const storeToken = async (token) => {
   try {
-    await AsyncStorage.setItem(KEY, token);
+    await AsyncStorage.setItem(KEY, JSON.stringify(token));
   } catch (error) {
     return error;
   }
@@ -20,7 +20,7 @@ const getToken = async () => {
 
 const getUser = async () => {
   const token = await getToken();
-  return token ? token : null;
+  return token ? JSON.parse(token) : null;
 };
 
 const removeToken = async () => {

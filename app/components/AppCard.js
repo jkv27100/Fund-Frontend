@@ -17,7 +17,6 @@ import Tag from "./Tag";
 import postInteractionApi from "../api/postInteraction";
 import { UserContext } from "../auth/context";
 import Toast from "../utilities/Toast";
-import authStorage from "../auth/authStorage";
 
 export default function AppCard({
   title,
@@ -38,15 +37,11 @@ export default function AppCard({
   const [collapsed, setCollapsed] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const handleBookmark = async () => {
-    if (!bookmarked) {
+    if (!bookmarked && !isBookMarked) {
       const response = await postInteractionApi.addToBookmark(user._id, postId);
-      let newUser = user;
-      newUser.bookmarked.push(response.newPost);
-      setUser(newUser);
-      authStorage.storeToken(newUser);
       Toast.showToast(response.message);
       setBookmarked(true);
     }
@@ -55,9 +50,6 @@ export default function AppCard({
         user._id,
         postId
       );
-      let newUser = response.newUser;
-      setUser(newUser);
-      authStorage.storeToken(newUser);
       Toast.showToast(response.message);
       setBookmarked(false);
     }

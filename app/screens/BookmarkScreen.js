@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import AppCard from "../components/AppCard";
 import StatusBarView from "../components/StatusBarView";
@@ -6,18 +6,37 @@ import theme from "../config/theme";
 import { UserContext } from "../auth/context";
 import NotAPostScreen from "../screens/NotAPosterScreen";
 import routes from "../navigation/routes";
+import postInteractionApi from "../api/postInteraction";
 
 export default function BookmarkScreen({ navigation }) {
   const { user } = useContext(UserContext);
+  const [refreshing, setFreshing] = useState(false);
+
+  const [posts, setPosts] = useState([]);
+
+  const getPosts = async () => {
+    const result = await postInteractionApi.getBookmarked(user._id);
+    setPosts(result.bookmarked);
+  };
+
+  const handleRefresh = () => {
+    getPosts();
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   return (
     <View style={styles.container}>
       <StatusBarView />
-      {user.bookmarked ? (
+      {posts.length !== 0 ? (
         <View style={{ width: "90%", paddingTop: 40 }}>
           <FlatList
-            data={user.bookmarked}
+            data={posts}
             showsVerticalScrollIndicator={false}
+            onRefresh={handleRefresh}
+            refreshing={refreshing}
             keyExtractor={(data) => data._id.toString()}
             renderItem={({ item }) => (
               <View style={styles.list}>
