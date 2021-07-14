@@ -71,11 +71,10 @@ export default function PostDetailsScreen({ navigation, route }) {
                 {postData.subTitle}
               </Text>
             </View>
-            <View style={styles.iconContainer}>
+            {/* <View style={styles.iconContainer}>
               <Icon name="bookmark" size={20} />
-              <Icon name="thumbs-up" size={20} />
-              <Icon name="thumbs-down" size={20} />
-            </View>
+              <Icon name="heart" size={20} />
+            </View> */}
           </View>
           <View style={styles.progress}>
             <ProgressBar
@@ -101,7 +100,7 @@ export default function PostDetailsScreen({ navigation, route }) {
                 </Text>
               </View>
               <AppButton
-                text="Back This project"
+                text="Back This post"
                 width={theme.buttonSizes.details.width}
                 height={theme.buttonSizes.details.height}
                 fontSize={14}
@@ -226,7 +225,7 @@ const styles = StyleSheet.create({
   iconContainer: {
     flexDirection: "row",
     width: "30%",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
   },
   title: {
     fontSize: 20,

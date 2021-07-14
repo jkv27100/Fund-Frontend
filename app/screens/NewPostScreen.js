@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Yup from "yup";
 import AppButton from "../components/AppButton";
@@ -14,6 +14,8 @@ import theme from "../config/theme";
 import routes from "../navigation/routes";
 import { UserContext, NewPostContext } from "../auth/context";
 import NotAPosterScreen from "./NotAPosterScreen";
+import * as Location from "expo-location";
+import locationApi from "../api/location";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().label("Title"),
@@ -25,8 +27,25 @@ export default function NewPostScreen({ navigation }) {
   const [selectedItem, setSelectedItem] = useState("");
   const [imageUris, setImageUris] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [location, setLocation] = useState();
   const { user } = useContext(UserContext);
   const { postData, setPostData } = useContext(NewPostContext);
+
+  const getLocation = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") return Toast.showToast("Permission Denied");
+
+    let { coords } = await Location.getCurrentPositionAsync({});
+    const res = await locationApi.getLocationName(
+      coords.latitude,
+      coords.longitude
+    );
+    setLocation(res.locality + ", " + res.county);
+  };
+
+  useEffect(() => {
+    getLocation();
+  });
 
   const handleAdd = (uri) => {
     setImageUris([...imageUris, uri]);
@@ -38,7 +57,13 @@ export default function NewPostScreen({ navigation }) {
 
   const handleSubmit = (postValues) => {
     setLoading(true);
-    setPostData({ postValues, imageUris, selectedItem, user_id: user._id });
+    setPostData({
+      postValues,
+      imageUris,
+      selectedItem,
+      user_id: user._id,
+      location,
+    });
 
     setTimeout(() => {
       setLoading(false);
@@ -48,8 +73,7 @@ export default function NewPostScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {console.log(user.isPoster)}
-      {user.isPoster ? (
+      {user.isCharity || user.isKickStarter ? (
         <ScrollView style={{ width: "100%" }}>
           <StatusBarView />
           <View style={styles.topSection}>

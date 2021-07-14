@@ -42,7 +42,7 @@ export default function PostListScreen({ navigation }) {
                 pledged={item.amountRaised}
                 days={item.goalDays}
                 likes={item.upvotes}
-                button="back project"
+                button="back this post"
                 tag={item.tag}
                 location={item.location}
                 isApproved={item.isApproved}

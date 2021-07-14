@@ -11,7 +11,7 @@ export default Object.freeze({
   COMMENT: "Comment",
   CHARITY: "Charity",
   KICKSTARTER: "KickStarter",
-  AFTERAPPLIED: "AfterApplied",
+  AFTERAPPLIED: "PosterRole",
   NEW_POST: "AddPost",
   NEW_POST2: "Post2",
 });

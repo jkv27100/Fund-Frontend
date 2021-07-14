@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View } from "react-native";
 import theme from "../config/theme";
 
-export default function NotAPosterScreen({ text1, text2 }) {
+export default function NotAPosterScreen({ text1, text2, emoji = "😐" }) {
   return (
     <View
       style={{
@@ -12,7 +12,7 @@ export default function NotAPosterScreen({ text1, text2 }) {
         flex: 1,
       }}
     >
-      <Text style={{ color: theme.colors.white, fontSize: 80 }}>☹</Text>
+      <Text style={{ color: theme.colors.white, fontSize: 80 }}>{emoji}</Text>
       <Text style={{ color: theme.colors.white, fontSize: 17 }}>{text1}</Text>
       <Text style={{ color: theme.colors.white, fontSize: 17 }}>{text2}</Text>
     </View>

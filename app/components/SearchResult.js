@@ -7,7 +7,7 @@ export default function SearchResult({ title, subTitle, onPress }) {
     <TouchableOpacity style={styles.container} onPress={onPress}>
       <Text
         numberOfLines={1}
-        style={{ color: theme.colors.white, fontSize: 24, fontWeight: "bold" }}
+        style={{ color: theme.colors.white, fontSize: 20, fontWeight: "bold" }}
       >
         {title}
       </Text>
@@ -31,6 +31,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     width: "100%",
-    padding: 20,
+    padding: 15,
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: theme.colors.light,
   },
 });

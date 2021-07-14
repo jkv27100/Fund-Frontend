@@ -10,6 +10,8 @@ import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
 import SuccesScreen from "./SuccesScreen";
+import sendMailApi from "../api/sendMail";
+import Toast from "../utilities/Toast";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -22,13 +24,29 @@ export default function CharityApplicationScreen({ navigation }) {
   const [imageUri, setImageUri] = useState("");
   const [visible, setVisible] = useState(false);
 
-  const handleSubmit = (values) => {
+  const generateData = (otherData) => {
+    const formData = new FormData();
+    formData.append("adhar", {
+      name: "adhar_image",
+      uri: imageUri,
+      type: "image/jpg",
+    });
+    formData.append("UID", otherData.UID);
+    formData.append("name", otherData.name);
+    formData.append("email", otherData.email);
+    formData.append("adress", otherData.adress);
+    return formData;
+  };
+
+  const handleSubmit = async (values) => {
+    const form = generateData(values);
+    const { data } = await sendMailApi.sendCharityMail(form);
     setVisible(true);
     setTimeout(() => {
+      Toast.showToast(data.message);
       setVisible(false);
       navigation.navigate(routes.AFTERAPPLIED);
     }, 2800);
-    console.log(values);
   };
   return (
     <View style={styles.container}>
@@ -49,7 +67,7 @@ export default function CharityApplicationScreen({ navigation }) {
           }) => (
             <>
               <View style={styles.image}>
-                <ImageInput imageUri={imageUri} setImageUri={setImageUri} />
+                <ImageInput imageUri={imageUri} onChangeImage={setImageUri} />
                 <Text
                   style={{
                     color: theme.colors.white,

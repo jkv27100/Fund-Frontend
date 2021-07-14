@@ -1,44 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import SearchBar from "../components/SearchBar";
 import SearchResult from "../components/SearchResult";
 import Separator from "../components/Separator";
 import StatusBarView from "../components/StatusBarView";
+import postApi from "../api/getPostData";
+import routes from "../navigation/routes";
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }) {
   const [searched, setSearched] = useState("");
-  const searchData = [
-    {
-      id: "1",
-      title: "Food",
-      subTitle: "Amazing food near you",
-    },
-    {
-      id: "2",
-      title: "Art",
-      subTitle: "Amazing food near you",
-    },
-    {
-      id: "3",
-      title: "Tech",
-      subTitle: "Amazing food near you",
-    },
-    {
-      id: "4",
-      title: "Autonomus",
-      subTitle: "Amazing food near you",
-    },
-    {
-      id: "5",
-      title: "Food",
-      subTitle: "Amazing food near you",
-    },
-  ];
-  const [searchDetails, setSearchDetails] = useState(searchData);
+  const [posts, setPosts] = useState();
+
+  const getPosts = async () => {
+    const { data } = await postApi.getApprovedPosts();
+    setPosts(data.posts);
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const [searchDetails, setSearchDetails] = useState(posts);
 
   const handleChange = (text) => {
-    setSearched(text);
-    const filteredData = searchData.filter((item) => item.title === searched);
+    let key = text.replace(/\s/g, "").toLowerCase();
+
+    setSearched(key);
+    const filteredData = posts.filter(
+      (item) => item.title.replace(/\s/g, "").toLowerCase() === searched
+    );
     setSearchDetails(filteredData);
   };
 
@@ -53,9 +42,13 @@ export default function SearchScreen() {
           <FlatList
             data={searchDetails}
             ItemSeparatorComponent={Separator}
-            keyExtractor={(data) => data.id.toString()}
+            keyExtractor={(data) => data._id.toString()}
             renderItem={({ item }) => (
-              <SearchResult title={item.title} subTitle={item.subTitle} />
+              <SearchResult
+                title={item.title}
+                subTitle={item.subTitle}
+                onPress={() => navigation.navigate(routes.POST_DETAILS, item)}
+              />
             )}
           />
         </View>

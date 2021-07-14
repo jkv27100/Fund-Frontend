@@ -3,7 +3,6 @@ import {
   createStackNavigator,
 } from "@react-navigation/stack";
 import React from "react";
-import AfterAppliedScreen from "../screens/AfterAppliedScreen";
 import CharityApplicationScreen from "../screens/CharityApplicationScreen";
 import KickStarterApplicationScreen from "../screens/KickStarterApplicationScreen";
 import PosterRoleScreen from "../screens/PosterRoleScreen";
@@ -24,7 +23,6 @@ export default function PosterRoleNavigator() {
         name={"KickStarter"}
         component={KickStarterApplicationScreen}
       />
-      <Stack.Screen name={"AfterApplied"} component={AfterAppliedScreen} />
     </Stack.Navigator>
   );
 }

@@ -55,6 +55,7 @@ export default function BookmarkScreen({ navigation }) {
                   location={item.location}
                   onPress={() => navigation.navigate(routes.POST_DETAILS, item)}
                   isBookMarked={true}
+                  postId={item._id}
                 />
               </View>
             )}

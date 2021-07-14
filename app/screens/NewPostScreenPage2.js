@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import AppButton from "../components/AppButton";
 import StatusBarView from "../components/StatusBarView";
@@ -29,6 +29,7 @@ export default function NewPostScreenPage2() {
     formData.append("goalAmount", postData.postValues.amount);
     formData.append("tag", postData.selectedItem);
     formData.append("description", state);
+    formData.append("location", postData.location);
 
     return formData;
   };
