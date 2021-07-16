@@ -23,10 +23,9 @@ export default function SearchScreen({ navigation }) {
 
   const handleChange = (text) => {
     let key = text.replace(/\s/g, "").toLowerCase();
-
     setSearched(key);
-    const filteredData = posts.filter(
-      (item) => item.title.replace(/\s/g, "").toLowerCase() === searched
+    const filteredData = posts.filter((item) =>
+      item.title.replace(/\s/g, "").toLowerCase().includes(searched)
     );
     setSearchDetails(filteredData);
   };

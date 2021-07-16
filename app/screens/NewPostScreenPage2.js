@@ -6,12 +6,14 @@ import Steps from "../components/Steps";
 import theme from "../config/theme";
 import { NewPostContext } from "../auth/context";
 import postUpload from "../api/postUpload";
+import { UserContext } from "../auth/context";
 import Toast from "../utilities/Toast";
 
 export default function NewPostScreenPage2() {
   const [state, setState] = useState("");
   const [loading, setLoading] = useState(false);
   const { postData, setPostData } = useContext(NewPostContext);
+  const { user, setUser } = useContext(UserContext);
 
   const generateFormData = () => {
     const formData = new FormData();
@@ -33,6 +35,12 @@ export default function NewPostScreenPage2() {
 
     return formData;
   };
+
+  // const updateUser = () => {
+  //   const newUser = user;
+  //   newUser.post_no = newUser.post_no + 1;
+  //   setUser(newUser);
+  // };
   const handlePostUpload = async () => {
     setLoading(true);
     const data = generateFormData();
@@ -40,6 +48,7 @@ export default function NewPostScreenPage2() {
     setTimeout(() => {
       setLoading(false);
       Toast.showToast(result.data.message);
+      // updateUser();
     }, 1800);
   };
   return (

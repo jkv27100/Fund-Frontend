@@ -7,6 +7,7 @@ import theme from "../config/theme";
 import commentApi from "../api/comment";
 import { UserContext } from "../auth/context";
 import Toast from "../utilities/Toast";
+import routes from "../navigation/routes";
 
 export default function CommentScreen({ route, navigation }) {
   const [state, setState] = useState("");
@@ -43,6 +44,7 @@ export default function CommentScreen({ route, navigation }) {
       setTimeout(() => {
         setIsLoading(false);
         Toast.showToast(data.message);
+        navigation.navigate(routes.POST_DETAILS, { postData: postId });
       }, 1400);
     } else {
       setError(true);

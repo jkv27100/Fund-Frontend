@@ -9,8 +9,8 @@ const registerNewUser = async (user) => {
 };
 
 const getUserData = async (user_id) => {
-  const result = await server.post(getUserEndPoint, { user_id });
-  return result;
+  const { data } = await server.post(getUserEndPoint, { user_id });
+  return data;
 };
 
 export default { registerNewUser, getUserData };

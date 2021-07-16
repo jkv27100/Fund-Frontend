@@ -11,7 +11,6 @@ import routes from "../navigation/routes";
 
 export default function ViewPostScreen({ navigation }) {
   const [isReady, setIsReady] = useState(false);
-  const [visible, setVisible] = useState(true);
   const [details, setDetails] = useState();
   const [refreshing, setFreshing] = useState(false);
   const { user } = useContext(UserContext);
@@ -22,65 +21,66 @@ export default function ViewPostScreen({ navigation }) {
   };
   useEffect(() => {
     getPosts();
+    setTimeout(() => {
+      setIsReady(true);
+    }, 6000);
   }, []);
-
-  setTimeout(() => {
-    setIsReady(true);
-    setVisible(false);
-  }, 2000);
 
   const handleRefresh = () => {
     getPosts();
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBarView />
-      <View style={{ width: "100%", padding: 20 }}>
-        <Header onPress={() => navigation.openDrawer()} title="Your Posts" />
-      </View>
-
+    <>
       {isReady ? (
-        <View style={{ width: "90%" }}>
-          <FlatList
-            data={details}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(data) => data._id.toString()}
-            onRefresh={handleRefresh}
-            refreshing={refreshing}
-            renderItem={({ item }) => (
-              <View style={styles.list}>
-                <AppCard
-                  title={item.title}
-                  subTitle={item.subTitle}
-                  images={item.images}
-                  percentage={Math.floor(
-                    (item.amountRaised / item.goalAmount) * 100
-                  )}
-                  pledged={item.goalAmount}
-                  days={item.goalDays}
-                  likes={item.upvotes}
-                  button="back this post"
-                  tag={item.tag}
-                  location={item.location}
-                  isApproved={item.isApproved}
-                  onPress={() => navigation.navigate(routes.POST_DETAILS, item)}
-                />
-              </View>
-            )}
-          />
+        <View style={styles.container}>
+          <StatusBarView />
+
+          <View style={{ width: "90%", marginTop: 20, paddingBottom: 20 }}>
+            <FlatList
+              data={details}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={(data) => data._id.toString()}
+              onRefresh={handleRefresh}
+              refreshing={refreshing}
+              renderItem={({ item }) => (
+                <View style={styles.list}>
+                  <AppCard
+                    title={item.title}
+                    subTitle={item.subTitle}
+                    images={item.images}
+                    percentage={Math.floor(
+                      (item.amountRaised / item.goalAmount) * 100
+                    )}
+                    pledged={item.goalAmount}
+                    days={item.goalDays}
+                    likes={item.upvotes}
+                    button="back this post"
+                    tag={item.tag}
+                    location={item.location}
+                    isApproved={item.isApproved}
+                    onPress={() =>
+                      navigation.navigate(routes.POST_DETAILS, item)
+                    }
+                  />
+                </View>
+              )}
+            />
+          </View>
         </View>
       ) : (
         <View
           style={{
             width: "100%",
             flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          <Loader visible={visible} />
+          <Loader visible={true} />
         </View>
       )}
-    </View>
+    </>
   );
 }
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     alignItems: "center",
-    paddingBottom: 200,
+    paddingBottom: 20,
   },
   list: {
     width: "100%",

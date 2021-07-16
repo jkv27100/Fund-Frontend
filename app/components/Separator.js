@@ -9,7 +9,6 @@ export default function Separator() {
 const styles = StyleSheet.create({
   separator: {
     width: "100%",
-    height: 2,
-    backgroundColor: theme.colors.light,
+    marginTop: 10,
   },
 });

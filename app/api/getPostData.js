@@ -1,6 +1,7 @@
 import server from "./server";
 
 const endPoint = "/posts/get_post";
+const postIdEndPoint = "/posts/get_postById";
 
 const getApprovedPosts = () => {
   const result = server.get(endPoint);
@@ -12,4 +13,9 @@ const getAllPostById = (user_id) => {
   return result;
 };
 
-export default { getAllPostById, getApprovedPosts };
+const getPostById = async (_id) => {
+  const { data } = await server.post(postIdEndPoint, { _id });
+  return data;
+};
+
+export default { getAllPostById, getApprovedPosts, getPostById };

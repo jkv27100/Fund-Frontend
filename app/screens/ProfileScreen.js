@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 import { UserContext } from "../auth/context";
@@ -11,10 +11,14 @@ import imageAPI from "../api/profile";
 import TextButton from "../components/TextButton";
 import ProfileInfo from "../components/ProfileInfo";
 import useAuth from "../auth/useAuth";
+import userApi from "../api/register";
+import Loader from "../components/Loader";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
   const { user } = useContext(UserContext);
   const [profileImg, setProfileImg] = useState();
+  const [userDetails, setUserDetails] = useState();
+  const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const auth = useAuth();
@@ -24,9 +28,21 @@ export default function ProfileScreen() {
     setProfileImg(result);
   };
 
+  const getUser = async () => {
+    const response = await userApi.getUserData(user._id);
+    setUserDetails(response.userData);
+  };
   useEffect(() => {
-    getProfileImage();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      getProfileImage();
+      getUser();
+      setTimeout(() => {
+        setReady(true);
+      }, 3000);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   const handleImageUpload = async () => {
     setLoading(true);
@@ -52,94 +68,109 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBarView />
+    <>
+      {ready ? (
+        <View style={styles.container}>
+          <StatusBarView />
 
-      <View style={styles.topSection}>
-        <ImageInput imageUri={profileImg} onChangeImage={setProfileImg} />
-        <Text
+          <View style={styles.topSection}>
+            <ImageInput imageUri={profileImg} onChangeImage={setProfileImg} />
+            <Text
+              style={{
+                color: theme.colors.white,
+                fontSize: 18,
+                padding: 5,
+                fontWeight: "bold",
+              }}
+            >
+              {userDetails.name}
+            </Text>
+            <View style={{ marginBottom: 50 }}>
+              <AppButton
+                text="Change Profile"
+                width={140}
+                height={30}
+                fontSize={13}
+                loader={loading}
+                onPress={handleImageUpload}
+              />
+            </View>
+          </View>
+          <View style={styles.details}>
+            <View style={styles.content}>
+              <View style={{ alignItems: "center" }}>
+                <Text
+                  style={{
+                    color: theme.colors.white,
+                    fontSize: 19,
+                  }}
+                >
+                  Post
+                </Text>
+                <Text
+                  style={{
+                    color: theme.colors.white,
+                    fontSize: 19,
+                    paddingTop: 10,
+                  }}
+                >
+                  {userDetails.post_no}
+                </Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <Text style={{ color: theme.colors.white, fontSize: 19 }}>
+                  Donated
+                </Text>
+                <Text
+                  style={{
+                    color: theme.colors.white,
+                    fontSize: 19,
+                    paddingTop: 10,
+                  }}
+                >
+                  {`$ ${userDetails.donated}`}
+                </Text>
+              </View>
+              <View style={{ alignItems: "center" }}>
+                <Text style={{ color: theme.colors.white, fontSize: 19 }}>
+                  Balance
+                </Text>
+                <Text
+                  style={{
+                    color: theme.colors.white,
+                    fontSize: 19,
+                    paddingTop: 10,
+                  }}
+                >
+                  {`$ ${userDetails.balance}`}
+                </Text>
+              </View>
+            </View>
+          </View>
+          <ScrollView
+            style={{ width: "100%" }}
+            contentContainerStyle={{ alignItems: "center" }}
+          >
+            <View style={styles.userDetails}>
+              <ProfileInfo text={userDetails.email} name="envelope" />
+              <ProfileInfo text={userDetails.phone} name="phone" />
+              <TextButton text={"Log Out"} onPress={() => auth.logOut()} />
+            </View>
+          </ScrollView>
+        </View>
+      ) : (
+        <View
           style={{
-            color: theme.colors.white,
-            fontSize: 18,
-            padding: 5,
-            fontWeight: "bold",
+            width: "100%",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {user.name}
-        </Text>
-        <View style={{ marginBottom: 50 }}>
-          <AppButton
-            text="Change Profile"
-            width={140}
-            height={30}
-            fontSize={13}
-            loader={loading}
-            onPress={handleImageUpload}
-          />
+          <Loader visible={true} />
         </View>
-      </View>
-      <View style={styles.details}>
-        <View style={styles.content}>
-          <View style={{ alignItems: "center" }}>
-            <Text
-              style={{
-                color: theme.colors.white,
-                fontSize: 19,
-              }}
-            >
-              Post
-            </Text>
-            <Text
-              style={{
-                color: theme.colors.white,
-                fontSize: 19,
-                paddingTop: 10,
-              }}
-            >
-              {user.post_no}
-            </Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <Text style={{ color: theme.colors.white, fontSize: 19 }}>
-              Donated
-            </Text>
-            <Text
-              style={{
-                color: theme.colors.white,
-                fontSize: 19,
-                paddingTop: 10,
-              }}
-            >
-              {`$ ${user.donated}`}
-            </Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <Text style={{ color: theme.colors.white, fontSize: 19 }}>
-              Balance
-            </Text>
-            <Text
-              style={{
-                color: theme.colors.white,
-                fontSize: 19,
-                paddingTop: 10,
-              }}
-            >
-              {`$ ${user.balance}`}
-            </Text>
-          </View>
-        </View>
-      </View>
-      <ScrollView
-        style={{ width: "100%" }}
-        contentContainerStyle={{ alignItems: "center" }}
-      >
-        <View style={styles.userDetails}>
-          <ProfileInfo text={user.email} name="envelope" />
-          <ProfileInfo text={user.phone} name="phone" />
-          <TextButton text={"Log Out"} onPress={() => auth.logOut()} />
-        </View>
-      </ScrollView>
-    </View>
+      )}
+    </>
   );
 }
 
