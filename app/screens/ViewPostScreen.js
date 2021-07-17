@@ -20,11 +20,14 @@ export default function ViewPostScreen({ navigation }) {
     setDetails(data.postData);
   };
   useEffect(() => {
-    getPosts();
-    setTimeout(() => {
-      setIsReady(true);
-    }, 6000);
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      getPosts();
+      setTimeout(() => {
+        setIsReady(true);
+      }, 6000);
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const handleRefresh = () => {
     getPosts();

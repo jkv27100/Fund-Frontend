@@ -14,4 +14,5 @@ export default Object.freeze({
   AFTERAPPLIED: "PosterRole",
   NEW_POST: "AddPost",
   NEW_POST2: "Post2",
+  VIEW_POSTS: "View Posts",
 });

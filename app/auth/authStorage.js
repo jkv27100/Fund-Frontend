@@ -1,12 +1,12 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const KEY = "authToken";
+const KEY = JSON.stringify("authToken");
 
 const storeToken = async (token) => {
   try {
     await AsyncStorage.setItem(KEY, JSON.stringify(token));
   } catch (error) {
-    return error;
+    console.log("store token " + error);
   }
 };
 
@@ -14,7 +14,7 @@ const getToken = async () => {
   try {
     return await AsyncStorage.getItem(KEY);
   } catch (error) {
-    return error;
+    console.log("get token " + error);
   }
 };
 
@@ -27,7 +27,7 @@ const removeToken = async () => {
   try {
     await AsyncStorage.removeItem(KEY);
   } catch (error) {
-    return error;
+    console.log("remove user " + error);
   }
 };
 

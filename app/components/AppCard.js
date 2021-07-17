@@ -37,6 +37,7 @@ export default function AppCard({
   const [collapsed, setCollapsed] = useState(true);
   const [bookmarked, setBookmarked] = useState(false);
   const [upvoted, setUpvoted] = useState(false);
+  const [liked, setLiked] = useState(likes);
   const { user } = useContext(UserContext);
 
   const handleBookmark = async () => {
@@ -53,6 +54,18 @@ export default function AppCard({
       Toast.showToast(response.message);
       setBookmarked(false);
     }
+  };
+
+  const handleUpVote = async () => {
+    const response = await postInteractionApi.upVotePost(postId, user._id);
+    if (!response.success) {
+      setUpvoted(true);
+      return Toast.showToast(response.message);
+    }
+
+    setUpvoted(true);
+    setLiked(liked + 1);
+    Toast.showToast(response.message);
   };
 
   return (
@@ -86,7 +99,7 @@ export default function AppCard({
               <Icon
                 name="heart"
                 size={22}
-                onPress={() => setUpvoted(!upvoted)}
+                onPress={handleUpVote}
                 color={upvoted ? theme.colors.yellow : theme.colors.white}
               />
             </View>
@@ -134,7 +147,7 @@ export default function AppCard({
                   style={{ color: theme.colors.white, fontSize: 15 }}
                   numberOfLines={1}
                 >
-                  {likes + " likes"}
+                  {liked + " likes"}
                 </Text>
               </View>
               <View style={styles.btn}>

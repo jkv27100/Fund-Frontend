@@ -146,6 +146,7 @@ const styles = StyleSheet.create({
     marginTop: 100,
   },
   signup: {
+    width: "50%",
     flexDirection: "row",
     alignItems: "center",
     marginTop: 20,

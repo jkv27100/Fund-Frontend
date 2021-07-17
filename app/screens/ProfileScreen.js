@@ -1,5 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Modal,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 import { UserContext } from "../auth/context";
@@ -13,6 +21,7 @@ import ProfileInfo from "../components/ProfileInfo";
 import useAuth from "../auth/useAuth";
 import userApi from "../api/register";
 import Loader from "../components/Loader";
+import * as Clipboard from "expo-clipboard";
 
 export default function ProfileScreen({ navigation }) {
   const { user } = useContext(UserContext);
@@ -20,8 +29,14 @@ export default function ProfileScreen({ navigation }) {
   const [userDetails, setUserDetails] = useState();
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const auth = useAuth();
+
+  const copyToClipboard = () => {
+    Clipboard.default.setString("account no");
+    Toast.showToast("Copied to clipboard");
+  };
 
   const getProfileImage = async () => {
     const { result } = await imageAPI.getImage(user._id);
@@ -72,6 +87,31 @@ export default function ProfileScreen({ navigation }) {
       {ready ? (
         <View style={styles.container}>
           <StatusBarView />
+          <Modal
+            animationType="slide"
+            visible={modalVisible}
+            transparent
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Image
+                  source={require("../assets/images/qr.png")}
+                  style={styles.QRCode}
+                />
+                <TouchableOpacity onPress={copyToClipboard}>
+                  <Text
+                    selectable={true}
+                    style={{
+                      color: theme.colors.white,
+                      padding: 20,
+                      fontSize: 18,
+                    }}
+                  >{`Your account address is ${"0x8997878178321"}`}</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
 
           <View style={styles.topSection}>
             <ImageInput imageUri={profileImg} onChangeImage={setProfileImg} />
@@ -152,6 +192,13 @@ export default function ProfileScreen({ navigation }) {
             contentContainerStyle={{ alignItems: "center" }}
           >
             <View style={styles.userDetails}>
+              <AppButton
+                text="Show QR Code"
+                width={120}
+                height={40}
+                fontSize={14}
+                onPress={() => setModalVisible(true)}
+              />
               <ProfileInfo text={userDetails.email} name="envelope" />
               <ProfileInfo text={userDetails.phone} name="phone" />
               <TextButton text={"Log Out"} onPress={() => auth.logOut()} />
@@ -209,8 +256,24 @@ const styles = StyleSheet.create({
   },
   userDetails: {
     width: "80%",
-    marginTop: 100,
+    marginTop: 80,
     alignItems: "center",
     paddingBottom: 20,
+  },
+  modalContainer: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: theme.colors.black,
+    opacity: 0.8,
+  },
+  QRCode: {
+    width: 250,
+    height: 250,
+  },
+  modalContent: {
+    width: "100%",
+    alignItems: "center",
   },
 });

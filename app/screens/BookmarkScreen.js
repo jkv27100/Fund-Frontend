@@ -44,6 +44,7 @@ export default function BookmarkScreen({ navigation }) {
                   title={item.title}
                   subTitle={item.subTitle}
                   images={item.images}
+                  isApproved={item.isApproved}
                   percentage={Math.floor(
                     (item.amountRaised / item.goalAmount) * 100
                   )}

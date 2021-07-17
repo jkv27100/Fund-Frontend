@@ -16,8 +16,11 @@ export default function SearchScreen({ navigation }) {
     setPosts(data.posts);
   };
   useEffect(() => {
-    getPosts();
-  }, []);
+    const unsubscribe = navigation.addListener("focus", () => {
+      getPosts();
+    });
+    return unsubscribe;
+  }, [navigation]);
 
   const [searchDetails, setSearchDetails] = useState(posts);
 

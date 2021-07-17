@@ -1,18 +1,22 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../config/theme";
-import Icon from "./Icon";
+import { FontAwesome } from "@expo/vector-icons";
 
-export default function ProfileInfo({ text, onPress, name }) {
+export default function ProfileInfo({ text, name }) {
   return (
     <View style={styles.container}>
+      <FontAwesome name={name} color={theme.colors.white} size={18} />
       <Text
         numberOfLines={1}
-        style={{ color: theme.colors.white, fontSize: 18 }}
+        style={{
+          color: theme.colors.white,
+          fontSize: 18,
+          paddingHorizontal: 20,
+        }}
       >
         {text}
       </Text>
-      <Icon name={name} size={18} onPress={onPress} />
     </View>
   );
 }
@@ -21,7 +25,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     elevation: 2,
     paddingVertical: 20,
