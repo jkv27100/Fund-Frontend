@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React, { useState, useContext } from "react";
-import { ScrollView, StyleSheet, Text, ToastAndroid, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import * as Yup from "yup";
 
 import AppButton from "../components/AppButton";

@@ -22,6 +22,7 @@ import useAuth from "../auth/useAuth";
 import userApi from "../api/register";
 import Loader from "../components/Loader";
 import * as Clipboard from "expo-clipboard";
+import QRApi from "../api/QRCode";
 
 export default function ProfileScreen({ navigation }) {
   const { user } = useContext(UserContext);
@@ -30,17 +31,24 @@ export default function ProfileScreen({ navigation }) {
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [QRCode, setQRCode] = useState();
 
   const auth = useAuth();
 
   const copyToClipboard = () => {
-    Clipboard.default.setString("account no");
+    Clipboard.default.setString(user.accountNo);
     Toast.showToast("Copied to clipboard");
   };
 
   const getProfileImage = async () => {
     const { result } = await imageAPI.getImage(user._id);
     setProfileImg(result);
+  };
+
+  const handleModal = async () => {
+    const QRCode = await QRApi.getQR(user.accountNo);
+    setQRCode(QRCode.qr);
+    setModalVisible(true);
   };
 
   const getUser = async () => {
@@ -95,10 +103,7 @@ export default function ProfileScreen({ navigation }) {
           >
             <View style={styles.modalContainer}>
               <View style={styles.modalContent}>
-                <Image
-                  source={require("../assets/images/qr.png")}
-                  style={styles.QRCode}
-                />
+                <Image source={{ uri: QRCode }} style={styles.QRCode} />
                 <TouchableOpacity onPress={copyToClipboard}>
                   <Text
                     selectable={true}
@@ -107,7 +112,7 @@ export default function ProfileScreen({ navigation }) {
                       padding: 20,
                       fontSize: 18,
                     }}
-                  >{`Your account address is ${"0x8997878178321"}`}</Text>
+                  >{`Your account address is ${user.accountNo}`}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -197,7 +202,7 @@ export default function ProfileScreen({ navigation }) {
                 width={120}
                 height={40}
                 fontSize={14}
-                onPress={() => setModalVisible(true)}
+                onPress={handleModal}
               />
               <ProfileInfo text={userDetails.email} name="envelope" />
               <ProfileInfo text={userDetails.phone} name="phone" />

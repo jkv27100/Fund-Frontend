@@ -95,8 +95,10 @@ export default function RegisterScreen({ navigation }) {
                   />
                 </View>
                 <View style={styles.login}>
-                  <Text style={{ color: theme.colors.white }}>
-                    Already a user ?{" "}
+                  <Text
+                    style={{ color: theme.colors.white, paddingHorizontal: 10 }}
+                  >
+                    Already a user ?
                   </Text>
                   <TextButton
                     text="Log In"
@@ -140,7 +142,9 @@ const styles = StyleSheet.create({
   login: {
     flexDirection: "row",
     alignItems: "center",
+    width: "100%",
     marginTop: 20,
     paddingBottom: 20,
+    justifyContent: "center",
   },
 });

@@ -105,8 +105,10 @@ export default function LoginScreen({ navigation }) {
                   />
                 </View>
                 <View style={styles.signup}>
-                  <Text style={{ color: theme.colors.white }}>
-                    First Time Here ?{" "}
+                  <Text
+                    style={{ color: theme.colors.white, paddingHorizontal: 10 }}
+                  >
+                    First Time Here ?
                   </Text>
                   <TextButton
                     text="Sign Up"
@@ -149,6 +151,7 @@ const styles = StyleSheet.create({
     width: "50%",
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     marginTop: 20,
     paddingBottom: 20,
   },

@@ -12,11 +12,10 @@ export default function TextButton({ text, onPress }) {
 
 const styles = StyleSheet.create({
   button: {
-    width: "100%",
     alignItems: "center",
   },
   text: {
-    fontSize: 17,
+    fontSize: 18,
     color: theme.colors.white,
   },
 });

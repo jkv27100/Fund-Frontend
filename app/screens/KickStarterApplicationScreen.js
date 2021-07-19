@@ -10,6 +10,8 @@ import StatusBarView from "../components/StatusBarView";
 import theme from "../config/theme";
 import routes from "../navigation/routes";
 import SuccesScreen from "./SuccesScreen";
+import sendMailApi from "../api/sendMail";
+import Toast from "../utilities/Toast";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -20,13 +22,30 @@ const validationSchema = Yup.object().shape({
 
 export default function KickStarterApplicationScreen({ navigation }) {
   const [visible, setVisible] = useState(false);
-  const handleSubmit = (values) => {
+  const [uri, setUri] = useState([]);
+
+  const generateFormData = (details) => {
+    const formData = new FormData();
+    uri.map((uri) =>
+      formData.append("file", {
+        name: "file",
+        uri,
+        type: "document/pdf",
+      })
+    );
+    formData.append("details", { details });
+
+    return formData;
+  };
+  const handleSubmit = async (values) => {
+    const data = generateFormData(values);
     setVisible(true);
+    const res = await sendMailApi.sendKickStarterMail(data);
     setTimeout(() => {
       setVisible(false);
       navigation.navigate(routes.AFTERAPPLIED);
+      Toast.showToast("Mail send for verification");
     }, 2800);
-    console.log(values);
   };
   return (
     <View style={styles.container}>
@@ -36,8 +55,16 @@ export default function KickStarterApplicationScreen({ navigation }) {
         contentContainerStyle={{ alignItems: "center" }}
       >
         <View style={styles.topSection}>
-          <DocumentPicker text={"Incorporation Certificate"} />
-          <DocumentPicker text={"Startup India Certificate"} />
+          <DocumentPicker
+            text={"Incorporation Certificate"}
+            setUri={setUri}
+            uri={uri}
+          />
+          <DocumentPicker
+            text={"Startup India Certificate"}
+            setUri={setUri}
+            uri={uri}
+          />
         </View>
         <View style={styles.inputSection}>
           <SuccesScreen visible={visible} />

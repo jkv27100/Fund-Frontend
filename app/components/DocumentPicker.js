@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from "react-native";
 import theme from "../config/theme";
 import AppButton from "./AppButton";
 
-export default function DocumentPicker({ text }) {
+export default function DocumentPicker({ text, setUri, uri }) {
   const [isPicked, setIsPicked] = useState(false);
   const [fileName, setFileName] = useState("");
   const [size, setSize] = useState();
@@ -14,7 +14,9 @@ export default function DocumentPicker({ text }) {
       copyToCacheDirectory: false,
     });
     if (result.type === "success") {
-      console.log(result);
+      let array = uri;
+      array.push(result.uri);
+      setUri(array);
       setIsPicked(true);
       setFileName(result.name);
       setSize(result.size);
@@ -34,7 +36,7 @@ export default function DocumentPicker({ text }) {
           {fileName}
         </Text>
         <Text numberOfLines={1} style={{ color: theme.colors.light }}>
-          {size && size / 100000 + "M"}
+          {size ? (size && size / 1000000).toFixed(2) + " MB" : ""}
         </Text>
       </View>
       {isPicked ? (
