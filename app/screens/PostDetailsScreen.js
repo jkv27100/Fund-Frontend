@@ -21,6 +21,7 @@ import routes from "../navigation/routes";
 import { StackActions } from "@react-navigation/native";
 import postApi from "../api/getPostData";
 import Loader from "../components/Loader";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const minHeaderHeight = 70;
 const maxHeaderHeight = 250;
@@ -41,7 +42,7 @@ export default function PostDetailsScreen({ navigation, route }) {
     getPost();
     setTimeout(() => {
       setReady(true);
-    }, 5000);
+    }, 4000);
   }, []);
 
   const headerHeight = scrollPosition.interpolate({
@@ -113,10 +114,11 @@ export default function PostDetailsScreen({ navigation, route }) {
                         fontWeight: "bold",
                       }}
                     >
-                      US $ {post.amountRaised}
+                      ETH {post.amountRaised}
                     </Text>
+
                     <Text style={{ color: theme.colors.white, fontSize: 15 }}>
-                      pledged of US $ {post.goalAmount} goal
+                      pledged of ETH {post.goalAmount} goal
                     </Text>
                   </View>
                   <AppButton

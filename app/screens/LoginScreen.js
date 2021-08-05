@@ -1,7 +1,15 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import * as Yup from "yup";
+import * as Clipboard from "expo-clipboard";
 
 import API from "../api/auth";
 import useAuth from "../auth/useAuth";
@@ -21,10 +29,11 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const auth = useAuth();
-
+  const ADMIN_EMAIL = "kvjagannath63@gmail.com";
   const handlePasswordPress = () => {
-    console.log("pressed");
+    setModalVisible(true);
   };
 
   const handleSubmit = async (credentials) => {
@@ -46,9 +55,42 @@ export default function LoginScreen({ navigation }) {
     }
   };
 
+  const openEmailClient = () => {
+    Clipboard.default.setString(ADMIN_EMAIL);
+    Toast.showToast("Mail copied to clipboard");
+  };
   return (
     <View style={styles.container}>
       <StatusBarView />
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        transparent
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View
+          style={{
+            width: "100%",
+            flex: 1,
+            backgroundColor: theme.colors.black,
+            opacity: 0.8,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ fontSize: 40, padding: 20 }}>😐</Text>
+          <Text style={{ color: theme.colors.white, fontSize: 18 }}>
+            Send a mail to Admin to reset your password
+          </Text>
+          <TouchableOpacity onPress={openEmailClient}>
+            <Text
+              style={{ color: theme.colors.white, fontSize: 20, padding: 20 }}
+            >
+              {ADMIN_EMAIL}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </Modal>
       <ScrollView
         style={{ width: "100%" }}
         contentContainerStyle={{ alignItems: "center" }}

@@ -15,6 +15,7 @@ import ImageInput from "../components/ImageInput";
 import AppButton from "../components/AppButton";
 import imageUpload from "../api/imageUpload";
 import Toast from "../utilities/Toast";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import imageAPI from "../api/profile";
 import TextButton from "../components/TextButton";
 import ProfileInfo from "../components/ProfileInfo";
@@ -166,29 +167,56 @@ export default function ProfileScreen({ navigation }) {
                 <Text style={{ color: theme.colors.white, fontSize: 19 }}>
                   Donated
                 </Text>
-                <Text
+
+                <View
                   style={{
-                    color: theme.colors.white,
-                    fontSize: 19,
+                    flexDirection: "row",
+                    alignItems: "center",
                     paddingTop: 10,
                   }}
                 >
-                  {`$ ${userDetails.donated}`}
-                </Text>
+                  <MaterialCommunityIcons
+                    name="currency-eth"
+                    size={20}
+                    color={theme.colors.yellow}
+                  />
+
+                  <Text
+                    style={{
+                      color: theme.colors.white,
+                      fontSize: 19,
+                    }}
+                  >
+                    {`${userDetails.donated}`}
+                  </Text>
+                </View>
               </View>
               <View style={{ alignItems: "center" }}>
                 <Text style={{ color: theme.colors.white, fontSize: 19 }}>
                   Balance
                 </Text>
-                <Text
+                <View
                   style={{
-                    color: theme.colors.white,
-                    fontSize: 19,
+                    flexDirection: "row",
+                    alignItems: "center",
                     paddingTop: 10,
                   }}
                 >
-                  {`$ ${userDetails.balance}`}
-                </Text>
+                  <MaterialCommunityIcons
+                    name="currency-eth"
+                    size={20}
+                    color={theme.colors.yellow}
+                  />
+
+                  <Text
+                    style={{
+                      color: theme.colors.white,
+                      fontSize: 19,
+                    }}
+                  >
+                    {`${userDetails.balance}`}
+                  </Text>
+                </View>
               </View>
             </View>
           </View>

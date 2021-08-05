@@ -54,7 +54,11 @@ export default function BookmarkScreen({ navigation }) {
                   button="back project"
                   tag={item.tag}
                   location={item.location}
-                  onPress={() => navigation.navigate(routes.POST_DETAILS, item)}
+                  onPress={() =>
+                    navigation.navigate(routes.POST_DETAILS, {
+                      postData: item._id,
+                    })
+                  }
                   isBookMarked={true}
                   postId={item._id}
                 />

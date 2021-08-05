@@ -24,7 +24,7 @@ export default function ViewPostScreen({ navigation }) {
       getPosts();
       setTimeout(() => {
         setIsReady(true);
-      }, 6000);
+      }, 4000);
     });
     return unsubscribe;
   }, [navigation]);
@@ -55,15 +55,18 @@ export default function ViewPostScreen({ navigation }) {
                     percentage={Math.floor(
                       (item.amountRaised / item.goalAmount) * 100
                     )}
-                    pledged={item.goalAmount}
+                    pledged={item.amountRaised}
                     days={item.goalDays}
                     likes={item.upvotes}
                     button="back this post"
                     tag={item.tag}
                     location={item.location}
                     isApproved={item.isApproved}
+                    postId={item._id}
                     onPress={() =>
-                      navigation.navigate(routes.POST_DETAILS, item)
+                      navigation.navigate(routes.POST_DETAILS, {
+                        postData: item._id,
+                      })
                     }
                   />
                 </View>

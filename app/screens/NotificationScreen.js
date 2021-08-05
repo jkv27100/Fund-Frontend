@@ -29,56 +29,6 @@ const Notifications = [
     title: "Goal!",
     details: "A project you backed has met the required goal amount!",
   },
-  {
-    id: 4,
-    title: "SAASUKE",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 5,
-    title: "NARUTO",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 6,
-    title: "SASUKEE",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 7,
-    title: "NARUTOO",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 8,
-    title: "SASUKEEE",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 9,
-    title: "NAARUTOOO",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 10,
-    title: "SAAASUUKEEE",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 11,
-    title: "NAARUTOOOO",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 12,
-    title: "SAASUUU",
-    details: "bla bla bla bla bla.",
-  },
-  {
-    id: 13,
-    title: "NARUUU",
-    details: "bla bla bla bla bla.",
-  },
 ];
 
 const NotificationScreen = ({ navigation }) => {
