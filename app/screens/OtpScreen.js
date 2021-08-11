@@ -41,24 +41,24 @@ export default function OtpScreen({ navigation }) {
 
   const handleSubmit = async ({ otp }) => {
     navigation.navigate(routes.REGISTER_3);
-    // const { data } = await verifyOtpApi.get(`/${otp}`);
+    const { data } = await verifyOtpApi.get(`/${otp}`);
 
-    // if (data.Status === "Error")
-    //   return ToastAndroid.showWithGravity(
-    //     data.Details,
-    //     ToastAndroid.LONG,
-    //     ToastAndroid.TOP
-    //   );
-    // if (data.Details === "OTP Matched") {
-    //   setLoading(true);
+    if (data.Status === "Error")
+      return ToastAndroid.showWithGravity(
+        data.Details,
+        ToastAndroid.LONG,
+        ToastAndroid.TOP
+      );
+    if (data.Details === "OTP Matched") {
+      setLoading(true);
 
-    //   ToastAndroid.show("OTP Verified", ToastAndroid.SHORT);
-    //   setTimeout(() => {
-    //     setLoading(false);
+      ToastAndroid.show("OTP Verified", ToastAndroid.SHORT);
+      setTimeout(() => {
+        setLoading(false);
 
-    //     navigation.navigate(routes.REGISTER_3);
-    //   }, 1500);
-    // }
+        navigation.navigate(routes.REGISTER_3);
+      }, 1500);
+    }
   };
   return (
     <View style={styles.container}>

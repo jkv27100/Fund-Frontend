@@ -1,8 +1,10 @@
 import server from "./server";
 
-const endPoint = "/";
+const endPoint = "/balance";
 
 const getBalance = async (accountNo) => {
-  const { data } = await server.get(endPoint, { accountNo });
+  const { data } = await server.post(endPoint, { accountNo });
   return data;
 };
+
+export default { getBalance };

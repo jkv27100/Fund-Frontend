@@ -15,4 +15,6 @@ export default Object.freeze({
   NEW_POST: "AddPost",
   NEW_POST2: "Post2",
   VIEW_POSTS: "View Posts",
+  PAYMENT: "Payment",
+  TRANSACTION: "Transactions",
 });

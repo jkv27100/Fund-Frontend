@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Animated,
   TouchableHighlight,
@@ -12,31 +12,44 @@ import {
 import { SwipeListView } from "react-native-swipe-list-view";
 import theme from "../config/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import notificationApi from "../api/notifications";
+import { UserContext } from "../auth/context";
 
-const Notifications = [
-  {
-    id: 1,
-    title: "Someone likes your post!",
-    details: "Madara Uchiha liked your post.",
-  },
-  {
-    id: 2,
-    title: "You got 14 upvotes!",
-    details: "Your latest post has 14 upvotes now.",
-  },
-  {
-    id: 3,
-    title: "Goal!",
-    details: "A project you backed has met the required goal amount!",
-  },
-];
+// const Notifications = [
+//   {
+//     id: 1,
+//     title: "Someone likes your post!",
+//     details: "Madara Uchiha liked your post.",
+//   },
+//   {
+//     id: 2,
+//     title: "You got 14 upvotes!",
+//     details: "Your latest post has 14 upvotes now.",
+//   },
+//   {
+//     id: 3,
+//     title: "Goal!",
+//     details: "A project you backed has met the required goal amount!",
+//   },
+// ];
 
 const NotificationScreen = ({ navigation }) => {
+  const { user } = useContext(UserContext);
+  const [Notifications, setNotifications] = useState();
+
+  const getNotifications = async () => {
+    const result = await notificationApi.getNotifications(user._id);
+    setNotifications(result.notifications);
+  };
+
+  useEffect(() => {
+    getNotifications();
+  });
+
   const [listData, setListData] = useState(
     Notifications.map((NotificationItem, index) => ({
       key: `${index}`,
-      title: NotificationItem.title,
-      details: NotificationItem.details,
+      title: NotificationItem,
     }))
   );
 

@@ -11,25 +11,25 @@ export default function OnBoardingScreen({ navigation }) {
       key: "1",
       source: require("../assets/animations/14482-welcome-onboard.json"),
       title: "Welcome",
-      text: "Say something cool",
+      text: "Hi, We will walk you through our app",
     },
     {
       key: "2",
       source: require("../assets/animations/2.json"),
       title: "Add Post and Donate",
-      text: "Other cool stuff",
+      text: "You can add posts and do donations",
     },
     {
       key: "3",
       source: require("../assets/animations/block.json"),
       title: "BlockChain",
-      text: "Other cool stuff",
+      text: "We use blockchain for secure transactions",
     },
     {
       key: "4",
       title: "Get Started",
       source: require("../assets/animations/start.json"),
-      text: "I'm already out of descriptions",
+      text: "Done, Let's get started",
     },
   ];
 

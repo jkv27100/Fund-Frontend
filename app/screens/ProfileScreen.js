@@ -24,11 +24,13 @@ import userApi from "../api/register";
 import Loader from "../components/Loader";
 import * as Clipboard from "expo-clipboard";
 import QRApi from "../api/QRCode";
+import balanceApi from "../api/balance";
 
 export default function ProfileScreen({ navigation }) {
   const { user } = useContext(UserContext);
   const [profileImg, setProfileImg] = useState();
   const [userDetails, setUserDetails] = useState();
+  const [balance, setBalance] = useState(0);
   const [ready, setReady] = useState(false);
   const [loading, setLoading] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
@@ -56,10 +58,16 @@ export default function ProfileScreen({ navigation }) {
     const response = await userApi.getUserData(user._id);
     setUserDetails(response.userData);
   };
+
+  const getBalance = async () => {
+    const { balance } = await balanceApi.getBalance(user.accountNo);
+    setBalance(balance);
+  };
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
       getProfileImage();
       getUser();
+      getBalance();
       setTimeout(() => {
         setReady(true);
       }, 3000);
@@ -187,7 +195,7 @@ export default function ProfileScreen({ navigation }) {
                       fontSize: 19,
                     }}
                   >
-                    {`${userDetails.donated}`}
+                    {`${userDetails.donated.toFixed(2)}`}
                   </Text>
                 </View>
               </View>
@@ -214,7 +222,7 @@ export default function ProfileScreen({ navigation }) {
                       fontSize: 19,
                     }}
                   >
-                    {`${userDetails.balance}`}
+                    {`${balance.toFixed(2)}`}
                   </Text>
                 </View>
               </View>

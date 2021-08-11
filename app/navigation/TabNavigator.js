@@ -2,7 +2,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import theme from "../config/theme";
-import NotificationScreen from "../screens/NotificationScreen";
+import NotificationScreen from "../screens/NotificationsScreen2";
 import ProfileScreen from "../screens/ProfileScreen";
 import SearchScreen from "../screens/SearchScreen";
 import FeedNavigator from "./FeedNavigator";

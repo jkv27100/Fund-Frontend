@@ -35,14 +35,13 @@ export default function PostDetailsScreen({ navigation, route }) {
   const getPost = async () => {
     const response = await postApi.getPostById(postData);
     setPost(response.post);
-    console.log(response.post._id);
   };
 
   useEffect(() => {
     getPost();
     setTimeout(() => {
       setReady(true);
-    }, 4000);
+    }, 3000);
   }, []);
 
   const headerHeight = scrollPosition.interpolate({
@@ -126,6 +125,9 @@ export default function PostDetailsScreen({ navigation, route }) {
                     width={theme.buttonSizes.details.width}
                     height={theme.buttonSizes.details.height}
                     fontSize={14}
+                    onPress={() =>
+                      navigation.navigate(routes.PAYMENT, { post })
+                    }
                   />
                   <View style={styles.tags}>
                     <Tag tag={post.tag} />

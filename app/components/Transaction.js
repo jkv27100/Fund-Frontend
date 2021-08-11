@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import theme from "../config/theme";
 
-export default function Transaction() {
+export default function Transaction({ text }) {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row" }}>
@@ -12,14 +12,17 @@ export default function Transaction() {
           size={30}
           color={theme.colors.white}
         />
-        <View style={{ marginLeft: 20 }}>
-          <Text style={{ color: theme.colors.white, fontSize: 18 }}>
-            Received from anhi
+        <View style={{ marginLeft: 20, width: "80%" }}>
+          <Text
+            numberOfLines={1}
+            style={{ color: theme.colors.white, fontSize: 18 }}
+          >
+            {text}
           </Text>
-          <Text style={{ color: theme.colors.light }}>17/4/12</Text>
+          {/* <Text style={{ color: theme.colors.light }}>17/4/12</Text> */}
         </View>
       </View>
-      <Text style={{ color: theme.colors.success, fontSize: 17 }}>+350</Text>
+      {/* <Text style={{ color: theme.colors.success, fontSize: 17 }}>+350</Text> */}
     </View>
   );
 }

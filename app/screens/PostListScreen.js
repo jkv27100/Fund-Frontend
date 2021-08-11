@@ -27,7 +27,7 @@ export default function PostListScreen({ navigation }) {
     getPosts();
     setTimeout(() => {
       setReady(true);
-    }, 4000);
+    }, 2000);
   }, []);
 
   const handleModal = () => {
