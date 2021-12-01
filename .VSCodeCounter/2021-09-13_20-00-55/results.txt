@@ -1,0 +1,133 @@
+Date : 2021-09-13 20:00:55
+Directory : f:\Final Year Project\FrontEnd\Fund
+Total : 97 files,  27780 codes, 39 comments, 430 blanks, all 28249 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |         12 |     22,640 |         15 |          5 |     22,660 |
+| JavaScript |         85 |      5,140 |         24 |        425 |      5,589 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                             | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                |         97 |     27,780 |         39 |        430 |     28,249 |
+| .expo-shared                                                                                     |          1 |          4 |          0 |          1 |          5 |
+| app                                                                                              |         91 |      7,843 |         24 |        420 |      8,287 |
+| app\api                                                                                          |         15 |        168 |          0 |         66 |        234 |
+| app\assets                                                                                       |          8 |      2,750 |          0 |          2 |      2,752 |
+| app\assets\animations                                                                            |          8 |      2,750 |          0 |          2 |      2,752 |
+| app\auth                                                                                         |          3 |         51 |          0 |         15 |         66 |
+| app\components                                                                                   |         32 |      1,410 |          1 |        106 |      1,517 |
+| app\config                                                                                       |          1 |         32 |          0 |          4 |         36 |
+| app\navigation                                                                                   |          8 |        318 |          4 |         22 |        344 |
+| app\screens                                                                                      |         23 |      3,105 |         19 |        202 |      3,326 |
+| app\utilities                                                                                    |          1 |          9 |          0 |          3 |         12 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                         | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| f:\Final Year Project\FrontEnd\Fund\.expo-shared\assets.json                                     | JSON       |          4 |          0 |          1 |          5 |
+| f:\Final Year Project\FrontEnd\Fund\App.js                                                       | JavaScript |         41 |          0 |          6 |         47 |
+| f:\Final Year Project\FrontEnd\Fund\app.json                                                     | JSON       |         16 |         15 |          0 |         31 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\QRCode.js                                            | JavaScript |          7 |          0 |          4 |         11 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\auth.js                                              | JavaScript |          7 |          0 |          4 |         11 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\balance.js                                           | JavaScript |          7 |          0 |          4 |         11 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\comment.js                                           | JavaScript |          7 |          0 |          4 |         11 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\getPostData.js                                       | JavaScript |         16 |          0 |          6 |         22 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\imageUpload.js                                       | JavaScript |         12 |          0 |          4 |         16 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\location.js                                          | JavaScript |         11 |          0 |          4 |         15 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\notifications.js                                     | JavaScript |          7 |          0 |          4 |         11 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\payment.js                                           | JavaScript |         11 |          0 |          4 |         15 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\postInteraction.js                                   | JavaScript |         25 |          0 |          6 |         31 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\postUpload.js                                        | JavaScript |         12 |          0 |          5 |         17 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\profile.js                                           | JavaScript |          7 |          0 |          4 |         11 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\register.js                                          | JavaScript |         12 |          0 |          5 |         17 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\sendMail.js                                          | JavaScript |         22 |          0 |          5 |         27 |
+| f:\Final Year Project\FrontEnd\Fund\app\api\server.js                                            | JavaScript |          5 |          0 |          3 |          8 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\14482-welcome-onboard.json             | JSON       |          1 |          0 |          0 |          1 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\2.json                                 | JSON       |          1 |          0 |          0 |          1 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\48788-done-animation.json              | JSON       |          1 |          0 |          0 |          1 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\9614-bluewallet-success-animation.json | JSON       |      1,584 |          0 |          1 |      1,585 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\block.json                             | JSON       |          1 |          0 |          0 |          1 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\btn-loading.json                       | JSON       |          1 |          0 |          0 |          1 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\start.json                             | JSON       |      1,160 |          0 |          1 |      1,161 |
+| f:\Final Year Project\FrontEnd\Fund\app\assets\animations\welcome.json                           | JSON       |          1 |          0 |          0 |          1 |
+| f:\Final Year Project\FrontEnd\Fund\app\auth\authStorage.js                                      | JavaScript |         28 |          0 |          7 |         35 |
+| f:\Final Year Project\FrontEnd\Fund\app\auth\context.js                                          | JavaScript |          6 |          0 |          3 |          9 |
+| f:\Final Year Project\FrontEnd\Fund\app\auth\useAuth.js                                          | JavaScript |         17 |          0 |          5 |         22 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Animator.js                                   | JavaScript |         13 |          0 |          2 |         15 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\AppButton.js                                  | JavaScript |         64 |          0 |          3 |         67 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\AppCard.js                                    | JavaScript |        230 |          0 |          7 |        237 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Avatar.js                                     | JavaScript |         50 |          0 |          4 |         54 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Carousel.js                                   | JavaScript |         25 |          0 |          4 |         29 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\CommentCarousel.js                            | JavaScript |         29 |          0 |          3 |         32 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Comments.js                                   | JavaScript |         36 |          0 |          4 |         40 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\DocumentPicker.js                             | JavaScript |         56 |          0 |          3 |         59 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ErrorMessage.js                               | JavaScript |         12 |          0 |          3 |         15 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Header.js                                     | JavaScript |        170 |          0 |          3 |        173 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Icon.js                                       | JavaScript |         24 |          0 |          2 |         26 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ImageContainer.js                             | JavaScript |         24 |          0 |          3 |         27 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ImageInput.js                                 | JavaScript |         95 |          1 |          8 |        104 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ImageInputList.js                             | JavaScript |         32 |          0 |          3 |         35 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\InputField.js                                 | JavaScript |         51 |          0 |          3 |         54 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\IntroButton.js                                | JavaScript |         27 |          0 |          3 |         30 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ItemPIcker.js                                 | JavaScript |         33 |          0 |          3 |         36 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Loader.js                                     | JavaScript |         27 |          0 |          2 |         29 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\LocationTag.js                                | JavaScript |         31 |          0 |          3 |         34 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\NewPostButton.js                              | JavaScript |         28 |          0 |          3 |         31 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ProfileInfo.js                                | JavaScript |         33 |          0 |          3 |         36 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\ProgressBar.js                                | JavaScript |         34 |          0 |          3 |         37 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\RoundButton.js                                | JavaScript |         23 |          0 |          3 |         26 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\SearchBar.js                                  | JavaScript |         34 |          0 |          3 |         37 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\SearchResult.js                               | JavaScript |         37 |          0 |          3 |         40 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Separator.js                                  | JavaScript |         12 |          0 |          3 |         15 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Slide.js                                      | JavaScript |         55 |          0 |          4 |         59 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\StatusBarView.js                              | JavaScript |         16 |          0 |          3 |         19 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Steps.js                                      | JavaScript |         25 |          0 |          3 |         28 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Tag.js                                        | JavaScript |         31 |          0 |          3 |         34 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\TextButton.js                                 | JavaScript |         19 |          0 |          3 |         22 |
+| f:\Final Year Project\FrontEnd\Fund\app\components\Transaction.js                                | JavaScript |         34 |          0 |          3 |         37 |
+| f:\Final Year Project\FrontEnd\Fund\app\config\theme.js                                          | JavaScript |         32 |          0 |          4 |         36 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\AuthNavigator.js                              | JavaScript |         69 |          4 |          4 |         77 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\DrawerNavigator.js                            | JavaScript |         71 |          0 |          2 |         73 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\FeedNavigator.js                              | JavaScript |         25 |          0 |          3 |         28 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\NavigationTheme.js                            | JavaScript |         12 |          0 |          2 |         14 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\NewPostNavigator.js                           | JavaScript |         25 |          0 |          3 |         28 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\PosterRoleNavigator.js                        | JavaScript |         26 |          0 |          3 |         29 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\TabNavigator.js                               | JavaScript |         70 |          0 |          4 |         74 |
+| f:\Final Year Project\FrontEnd\Fund\app\navigation\routes.js                                     | JavaScript |         20 |          0 |          1 |         21 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\BookmarkScreen.js                                | JavaScript |         78 |          0 |          8 |         86 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\CharityApplicationScreen.js                      | JavaScript |        155 |          0 |          8 |        163 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\CommentScreen.js                                 | JavaScript |        117 |          0 |          6 |        123 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\KickStarterApplicationScreen.js                  | JavaScript |        164 |          0 |          7 |        171 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\LoginScreen.js                                   | JavaScript |        191 |          0 |         10 |        201 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\NewPostScreen.js                                 | JavaScript |        179 |          0 |         13 |        192 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\NewPostScreenPage2.js                            | JavaScript |        114 |          0 |          7 |        121 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\NotAPosterScreen.js                              | JavaScript |         19 |          0 |          2 |         21 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\NotificationScreen.js                            | JavaScript |        304 |         17 |         25 |        346 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\NotificationsScreen2.js                          | JavaScript |         60 |          0 |          4 |         64 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\OnBoardingScreen.js                              | JavaScript |         63 |          0 |          5 |         68 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\OtpScreen.js                                     | JavaScript |        131 |          0 |         13 |        144 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\PasswordConfirmScreen.js                         | JavaScript |        135 |          0 |         12 |        147 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\PaymentScreen.js                                 | JavaScript |        175 |          0 |          8 |        183 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\PostDetailsScreen.js                             | JavaScript |        298 |          2 |         13 |        313 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\PostListScreen.js                                | JavaScript |        139 |          0 |         11 |        150 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\PosterRoleScreen.js                              | JavaScript |         62 |          0 |          4 |         66 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\ProfileScreen.js                                 | JavaScript |        304 |          0 |         17 |        321 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\RegisterScreen.js                                | JavaScript |        145 |          0 |          6 |        151 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\SearchScreen.js                                  | JavaScript |         67 |          0 |          7 |         74 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\SuccesScreen.js                                  | JavaScript |         22 |          0 |          3 |         25 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\TransactionScreen.js                             | JavaScript |         86 |          0 |          6 |         92 |
+| f:\Final Year Project\FrontEnd\Fund\app\screens\ViewPostScreen.js                                | JavaScript |         97 |          0 |          7 |        104 |
+| f:\Final Year Project\FrontEnd\Fund\app\utilities\Toast.js                                       | JavaScript |          9 |          0 |          3 |         12 |
+| f:\Final Year Project\FrontEnd\Fund\babel.config.js                                              | JavaScript |          6 |          0 |          1 |          7 |
+| f:\Final Year Project\FrontEnd\Fund\package-lock.json                                            | JSON       |     19,821 |          0 |          1 |     19,822 |
+| f:\Final Year Project\FrontEnd\Fund\package.json                                                 | JSON       |         49 |          0 |          1 |         50 |
+| Total                                                                                            |            |     27,780 |         39 |        430 |     28,249 |
++--------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
